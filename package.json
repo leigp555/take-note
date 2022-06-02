@@ -1,8 +1,8 @@
 {
-  "name": "vite-vue3-tem",
+  "name": "note",
   "version": "0.0.1",
-  "private": false,
-  "description": "A Vite2.x + Vue3 + TypeScript template starter",
+  "private": true,
+  "description": "note",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -16,20 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:leigp555/vue3-template.git"
+    "url": "git+ssh://git@github.com:leigp555/take-note.git"
   },
-  "keywords": [
-    "Vite",
-    "Vue3",
-    "TypeScript",
-    "Starter"
-  ],
-  "author": "XPoet",
+  "keywords": ["note"],
+  "author": "lgp",
   "license": "MIT",
-  "bugs": {
-    "url": "https://git@github.com:leigp555/vue3-template/issues"
-  },
-  "homepage": "https://git@github.com:leigp555/vue3-template",
+
+  "homepage": "https://git@github.com:leigp555/take-note",
+
   "lint-staged": {
     "*.{vue,js,ts}": "eslint --fix"
   },
