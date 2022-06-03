@@ -1,1 +1,0 @@
-import{_ as e,o as a,c as o}from"./index-f8413111.js";const s={class:"home"};var r=e({},[["render",function(e,r){return a(),o("div",s,"Home组件")}],["__scopeId","data-v-380e2d06"]]);export{r as default};
