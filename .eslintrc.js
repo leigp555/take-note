@@ -28,6 +28,7 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     'no-plusplus': 'off',
     'vue/comment-directive': 0,
+    'vue/no-v-model-argument': 'off',
     'no-param-reassign': [
       'error',
       {

@@ -18,12 +18,12 @@
     "type": "git",
     "url": "git+ssh://git@github.com:leigp555/take-note.git"
   },
-  "keywords": ["note"],
+  "keywords": [
+    "note"
+  ],
   "author": "lgp",
   "license": "MIT",
-
   "homepage": "https://git@github.com:leigp555/take-note",
-
   "lint-staged": {
     "*.{vue,js,ts}": "eslint --fix"
   },
@@ -33,6 +33,7 @@
     }
   },
   "dependencies": {
+    "ant-design-vue": "^3.2.5",
     "axios": "^0.27.2",
     "dayjs": "^1.11.2",
     "nprogress": "^0.2.0",
@@ -43,6 +44,7 @@
     "vue-router": "^4.0.15"
   },
   "devDependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
     "@commitlint/cli": "^16.2.4",
     "@commitlint/config-conventional": "^16.2.4",
     "@types/jest": "^26.0.22",
@@ -72,6 +74,8 @@
     "sass": "^1.51.0",
     "ts-jest": "^26.5.4",
     "typescript": "^4.6.4",
+    "unplugin-auto-import": "^0.8.6",
+    "unplugin-vue-components": "^0.19.6",
     "vite": "^2.9.9",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-mock": "^2.9.6",
