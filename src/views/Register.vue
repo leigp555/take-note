@@ -103,9 +103,12 @@ export default defineComponent({
 <style lang="scss" scoped>
 $from_background: #fdf8fb;
 $from_top: 20vh;
-$from_max_width: 350px;
+$from_max_width: 400px;
 $button_height: 40px;
 $input_height: 40px;
+body {
+  border: 10px solid red;
+}
 .register-section-wrap {
   margin-left: auto;
   margin-right: auto;

@@ -92,7 +92,7 @@ export default defineComponent({
 $avatar_bottom: 40px;
 $from_background: #fdf8fb;
 $from_top: 20vh;
-$from_max_width: 350px;
+$from_max_width: 400px;
 $button_height: 40px;
 $input_height: 40px;
 .login-section-wrap {
