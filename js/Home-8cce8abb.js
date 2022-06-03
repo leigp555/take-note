@@ -1,1 +1,0 @@
-import{_ as a,o as e,c as o}from"./index-cac97dfa.js";const s={class:"home"};var d=a({},[["render",function(a,d){return e(),o("div",s,"Home组件")}],["__scopeId","data-v-380e2d06"]]);export{d as default};
