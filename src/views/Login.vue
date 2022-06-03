@@ -36,8 +36,13 @@
           <a-button type="primary" html-type="submit" class="login-form-button">
             Log in
           </a-button>
-          <div class="goto-register">
-            <a href="">register now!</a>
+          <div class="redirect">
+            <div class="goto-register">
+              <a href="">忘记密码?</a>
+            </div>
+            <div class="goto-register">
+              <a href="">免费注册</a>
+            </div>
           </div>
         </a-form-item>
       </a-form>
@@ -87,12 +92,12 @@ export default defineComponent({
 .login-section-wrap {
   margin-left: auto;
   margin-right: auto;
-  transform: translateY(30vh);
-  background-color: #f7f1fc;
-  padding: 40px 30px 10px 30px;
+  transform: translateY(20vh);
+  padding: 40px 25px 10px 25px;
   display: flex;
   max-width: 350px;
   flex-direction: column;
+  background-color: #fdf8fb;
   .section-avatar {
     margin-bottom: 40px;
     margin-left: auto;
@@ -101,12 +106,15 @@ export default defineComponent({
   .section-from {
     .login-form-button {
       width: 100%;
+      height: 40px;
     }
-    .goto-register {
+    .redirect {
       display: flex;
-      justify-content: end;
-
+      justify-content: space-between;
       padding-top: 30px;
+    }
+    .ant-input-affix-wrapper {
+      height: 40px;
     }
   }
 }
