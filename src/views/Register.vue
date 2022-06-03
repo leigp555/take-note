@@ -1,10 +1,10 @@
 <template>
-  <div class="login-section-wrap">
+  <div class="register-section-wrap">
     <section class="section-from">
       <a-form
         :model="formState"
-        name="normal_login"
-        class="login-form"
+        name="normal_register"
+        class="register-form"
         @finish="onFinish"
         @finishFailed="onFinishFailed"
       >
@@ -24,9 +24,11 @@
           name="username"
           :rules="[{ required: true, message: 'Please input your username!' }]"
         >
-          <div style="display: flex; justify-content: space-between; gap: 10px">
+          <div class="identifying-code">
             <a-input v-model:value="formState.username" placeholder="验证码"> </a-input>
-            <a-button type="primary" style="height: 40px">获取验证码</a-button>
+            <a-button type="primary" class="identifying-code-button"
+              >获取验证码</a-button
+            >
           </div>
         </a-form-item>
 
@@ -45,14 +47,14 @@
           </a-input-password>
         </a-form-item>
         <a-form-item>
-          <div class="action" style="display: flex; flex-direction: column; gap: 20px">
-            <a-button type="primary" html-type="submit" class="login-form-button">
+          <div class="button-action">
+            <a-button type="primary" html-type="submit" class="register-form-button">
               注册
             </a-button>
             <a-button
               type="primary"
               html-type="submit"
-              class="login-form-button"
+              class="register-form-button"
               style="background-color: white"
             >
               返回
@@ -97,21 +99,24 @@ export default defineComponent({
   }
 })
 </script>
+
 <style lang="scss" scoped>
-.login-section-wrap {
+$from_background: #fdf8fb;
+$from_top: 20vh;
+$from_max_width: 350px;
+$button_height: 40px;
+$input_height: 40px;
+.register-section-wrap {
   margin-left: auto;
   margin-right: auto;
-  transform: translateY(20vh);
+  transform: translateY($from_top);
   padding: 40px 25px 10px 25px;
-  display: flex;
-  max-width: 350px;
-  flex-direction: column;
-  background-color: #fdf8fb;
-
+  max-width: $from_max_width;
+  background-color: $from_background;
   .section-from {
-    .login-form-button {
+    .register-form-button {
       width: 100%;
-      height: 40px;
+      height: $button_height;
       color: black;
     }
     .redirect {
@@ -119,11 +124,24 @@ export default defineComponent({
       justify-content: space-between;
       padding-top: 30px;
     }
-    .ant-input-affix-wrapper {
-      height: 40px;
+    .identifying-code {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      .identifying-code-button {
+        height: $button_height;
+      }
     }
-    #normal_login_username {
-      height: 40px;
+    .button-action {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .ant-input-affix-wrapper {
+      height: $input_height;
+    }
+    #normal_register_username {
+      height: $input_height;
     }
   }
 }

@@ -89,24 +89,30 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
+$avatar_bottom: 40px;
+$from_background: #fdf8fb;
+$from_top: 20vh;
+$from_max_width: 350px;
+$button_height: 40px;
+$input_height: 40px;
 .login-section-wrap {
   margin-left: auto;
   margin-right: auto;
-  transform: translateY(20vh);
+  transform: translateY($from_top);
   padding: 40px 25px 10px 25px;
   display: flex;
-  max-width: 350px;
+  max-width: $from_max_width;
   flex-direction: column;
-  background-color: #fdf8fb;
+  background-color: $from_background;
   .section-avatar {
-    margin-bottom: 40px;
+    margin-bottom: $avatar_bottom;
     margin-left: auto;
     margin-right: auto;
   }
   .section-from {
     .login-form-button {
       width: 100%;
-      height: 40px;
+      height: $button_height;
     }
     .redirect {
       display: flex;
@@ -114,7 +120,7 @@ export default defineComponent({
       padding-top: 30px;
     }
     .ant-input-affix-wrapper {
-      height: 40px;
+      height: $input_height;
     }
   }
 }
