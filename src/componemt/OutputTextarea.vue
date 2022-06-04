@@ -12,7 +12,6 @@ const { scrollPosition, inputContent } = toRefs(props)
 const outputContent = computed(() => {
   return marked.parse(inputContent.value)
 })
-// outputContent.value = inputContent.value
 const outputArticle = ref<HTMLInputElement>()
 watchEffect(() => {
   if (outputArticle.value) {

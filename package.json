@@ -73,6 +73,7 @@
     "lint-staged": "^12.4.1",
     "mockjs": "^1.1.0",
     "prettier": "^2.6.2",
+    "pygmentize-bundled": "^2.3.0",
     "sass": "^1.51.0",
     "ts-jest": "^26.5.4",
     "typescript": "^4.6.4",
