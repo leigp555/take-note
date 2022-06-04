@@ -29,6 +29,7 @@ module.exports = {
     'no-plusplus': 'off',
     'vue/comment-directive': 0,
     'vue/no-v-model-argument': 'off',
+    'no-unused-expressions':'off',
     'no-param-reassign': [
       'error',
       {

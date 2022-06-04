@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 256px">
+  <div>
     <a-menu
       v-model:selectedKeys="selectedKeys"
       mode="inline"
@@ -12,31 +12,37 @@
       </section>
       <a-menu-item key="1">
         <template #icon>
-          <plus-circle-outlined />
+          <PlusCircleOutlined />
         </template>
         <span>添加</span>
       </a-menu-item>
       <a-menu-item key="2">
         <template #icon>
-          <file-search-outlined />
+          <FileTextOutlined />
         </template>
-        <span>搜索</span>
+        <span>草稿</span>
       </a-menu-item>
       <a-menu-item key="3">
         <template #icon>
-          <heart-outlined />
+          <SearchOutlined />
         </template>
-        <span>收藏</span>
+        <span>搜索</span>
       </a-menu-item>
       <a-menu-item key="4">
         <template #icon>
-          <tool-outlined />
+          <HeartOutlined />
+        </template>
+        <span>收藏</span>
+      </a-menu-item>
+      <a-menu-item key="5">
+        <template #icon>
+          <ToolOutlined />
         </template>
         <span>工具</span>
       </a-menu-item>
-      <a-menu-item key="5" style="position: relative; bottom: -50%">
+      <a-menu-item key="6" style="position: relative; bottom: -40%">
         <template #icon>
-          <login-outlined />
+          <LoginOutlined />
         </template>
         <span>退出</span>
       </a-menu-item>
@@ -47,10 +53,11 @@
 import { ref } from 'vue'
 import {
   PlusCircleOutlined,
-  FileSearchOutlined,
+  SearchOutlined,
   LoginOutlined,
   HeartOutlined,
-  ToolOutlined
+  ToolOutlined,
+  FileTextOutlined
 } from '@ant-design/icons-vue'
 
 const selectedKeys = ref<string[]>(['1'])
