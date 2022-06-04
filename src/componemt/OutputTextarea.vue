@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { ref, toRefs, watchEffect } from 'vue'
+import { computed, ref, toRefs, watchEffect } from 'vue'
+import * as marked from 'marked'
 
 interface Position {
   scrollPosition: number
@@ -7,6 +8,11 @@ interface Position {
 }
 const props = defineProps<Position>()
 const { scrollPosition, inputContent } = toRefs(props)
+
+const outputContent = computed(() => {
+  return marked.parse(inputContent.value)
+})
+// outputContent.value = inputContent.value
 const outputArticle = ref<HTMLInputElement>()
 watchEffect(() => {
   if (outputArticle.value) {
@@ -17,22 +23,27 @@ watchEffect(() => {
 
 <template>
   <div class="read-article">
-    <textarea
+    <div
       class="article-read"
       ref="outputArticle"
       contenteditable="false"
-      v-model="inputContent"
-    ></textarea>
+      v-html="outputContent"
+    ></div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .read-article {
-  display: flex;
   height: 100%;
+  position: relative;
   .article-read {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y: scroll;
+    height: 100%;
+    padding: 20px 20px 10px 20px;
     width: 100%;
-    justify-items: stretch;
     background-color: #ffffff;
     border: none;
     outline: none;

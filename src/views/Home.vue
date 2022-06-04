@@ -15,6 +15,7 @@ import ShowArticle from '@/componemt/ShowArticle.vue'
 
 <style lang="scss" scoped>
 .wrapper {
+  overflow-y: hidden;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;

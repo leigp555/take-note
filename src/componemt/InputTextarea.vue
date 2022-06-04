@@ -6,8 +6,9 @@ const content = ref<string>('')
 const scrollArticle = (e) => {
   emits('update:scrollPosition', e.target.scrollTop)
 }
-const writeContent = () => {
+const writeContent = (e) => {
   emits('update:inputContent', content.value)
+  e.target.scrollTop = 9999
 }
 </script>
 
@@ -27,6 +28,7 @@ const writeContent = () => {
   height: 100%;
   display: flex;
   .article-write {
+    padding: 20px 10px 40px 10px;
     width: 100%;
     justify-items: stretch;
     background-color: #f5f5f5;

@@ -31,7 +31,7 @@ module.exports = {
     'vue/no-v-model-argument': 'off',
     'no-unused-expressions':'off',
     'no-param-reassign': [
-      'error',
+      'off',
       {
         props: true,
         ignorePropertyModificationsFor: ['state', 'config']

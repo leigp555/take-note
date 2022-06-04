@@ -51,11 +51,13 @@ const inputContent = ref<string>('')
     display: flex;
     width: 100%;
     .input-textarea {
-      flex-grow: 1;
+      flex-grow: 0;
       flex-shrink: 1;
+      width: 50%;
     }
     .output-textarea {
-      flex-grow: 1;
+      width: 50%;
+      flex-grow: 0;
       flex-shrink: 1;
     }
   }
