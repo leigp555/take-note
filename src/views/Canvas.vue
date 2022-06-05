@@ -24,33 +24,12 @@ onMounted(() => {
   canvasEl.value!.width = document.body.getBoundingClientRect().width;
   canvasEl.value!.height = document.body.getBoundingClientRect().height;
   paint(canvasEl.value!, lineColor.value, lineWidth.value!);
-  document.body.addEventListener(
-    'touchmove',
-    (e) => {
-      e.preventDefault();
-    },
-    { passive: false }
-  );
 });
 
 // 弹窗是否可见
 const visible = ref<boolean>(false);
 const showDrawer = () => {
   visible.value = true;
-};
-
-// 设置线条宽度
-const lineWidthAdd = () => {
-  lineWidth.value! += 1;
-  initLine();
-};
-const lineWidthSub = () => {
-  if (lineWidth.value <= 0) {
-    lineWidth.value = 4;
-  } else {
-    lineWidth.value -= 1;
-  }
-  initLine();
 };
 
 // canvas转图片
@@ -89,19 +68,17 @@ const resetCanvas = () => {
 const clearTag = ref<HTMLElement>();
 
 function handle1(e: TouchEvent) {
-  const context = canvasEl.value!.getContext('2d');
   const x = e.touches[0].pageX;
   const y = e.touches[0].pageY;
-  clearTag.value!.style.top = `${e.touches[0].pageY}px`;
-  clearTag.value!.style.left = `${e.touches[0].pageX}px`;
-  context!.clearRect(x, y, 10, 10);
+  clearTag.value!.style.top = `${y}px`;
+  clearTag.value!.style.left = `${x}px`;
 }
 function handle2(e: TouchEvent) {
   clearTag.value!.style.display = 'block';
-  clearTag.value!.style.top = `${e.touches[0].pageY}px`;
-  clearTag.value!.style.left = `${e.touches[0].pageX}px`;
   const x = e.touches[0].pageX;
   const y = e.touches[0].pageY;
+  clearTag.value!.style.top = `${y}px`;
+  clearTag.value!.style.left = `${x}px`;
   const context = canvasEl.value!.getContext('2d');
   context!.clearRect(x, y, clearWidth.value, clearWidth.value);
 }
@@ -114,14 +91,14 @@ function handle3() {
 }
 
 const clearNow = ref(false);
+const clearWidth = ref<number>(20);
+
 function handle4(e: MouseEvent) {
   clearNow.value = true;
-  const context = canvasEl.value!.getContext('2d');
   const x = e.pageX;
   const y = e.pageY;
   clearTag.value!.style.top = `${y}px`;
   clearTag.value!.style.left = `${x}px`;
-  context!.clearRect(x, y, 10, 10);
 }
 
 function handle5(e: MouseEvent) {
@@ -146,19 +123,6 @@ function handle6() {
 
 const continuePaint = () => {
   paint(canvasEl.value!, lineColor.value, lineWidth.value!);
-};
-
-const clearWidth = ref<number>(20);
-const clearWidthAdd = () => {
-  clearWidth.value += 1;
-  paint(canvasEl.value!, canvasColor.value, clearWidth.value);
-};
-const clearWidthSub = () => {
-  clearWidth.value -= 1;
-  paint(canvasEl.value!, canvasColor.value, clearWidth.value);
-};
-const clearWidthChange = () => {
-  paint(canvasEl.value!, canvasColor.value, clearWidth.value);
 };
 
 const clear = () => {
@@ -186,10 +150,10 @@ const clear = () => {
         class="canvasEl"
       ></canvas>
       <div class="selector">
-        <button @click="showDrawer">画板设置</button>
-        <button @click="resetCanvas">清空画布内容</button>
-        <button id="clear" @click.prevent="clear">橡皮擦</button>
-        <button @click="continuePaint">继续绘画</button>
+        <a-button type="primary" @click="showDrawer">画板设置</a-button>
+        <a-button type="primary" @click="resetCanvas">清空画布内容</a-button>
+        <a-button type="primary" id="clear" @click.prevent="clear">橡皮擦</a-button>
+        <a-button type="primary" @click="continuePaint">继续绘画</a-button>
       </div>
     </div>
     <a-drawer
@@ -213,22 +177,12 @@ const clear = () => {
         <div class="section">
           <p>线条宽度:{{ lineWidth }}</p>
           <label>
-            <button @click="lineWidthAdd">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-jia"></use>
-              </svg>
-            </button>
             <input
               type="text"
               v-model.number="lineWidth"
               @change="initLine"
               style="max-width: 50px"
             />
-            <button @click="lineWidthSub">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-jian"></use>
-              </svg>
-            </button>
           </label>
         </div>
         <div class="section">
@@ -249,33 +203,12 @@ const clear = () => {
               style="max-width: 50px"
               @change="changeCanvasHeight"
             />
-            <button
-              @click="changeCanvasHeight"
-              style="box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5)"
-            >
-              提交
-            </button>
           </label>
         </div>
         <div class="section">
           <p>橡皮擦宽度:{{ clearWidth }}</p>
           <label>
-            <button @click="clearWidthAdd">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-jia"></use>
-              </svg>
-            </button>
-            <input
-              type="text"
-              v-model.number="clearWidth"
-              @change="clearWidthChange"
-              style="max-width: 50px"
-            />
-            <button @click="clearWidthSub">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-jian"></use>
-              </svg>
-            </button>
+            <input type="text" v-model.number="clearWidth" style="max-width: 50px" />
           </label>
         </div>
       </div>
@@ -304,8 +237,11 @@ const clear = () => {
   }
   .selector {
     position: fixed;
-    top: 50px;
-    left: 0;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: start;
   }
 }
 .setting {
@@ -343,8 +279,8 @@ const clear = () => {
   overflow: hidden;
 }
 #clearTag {
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   background: red;
   position: absolute;
   z-index: 100;
