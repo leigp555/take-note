@@ -194,7 +194,7 @@ const clear = () => {
             <input type="color" v-model="canvasColor" @change="initLine" />
           </label>
         </div>
-        <div class="section">
+        <div class="section changeHeight">
           <p>画布高度:{{ canvasHeight }}</p>
           <label>
             <input
@@ -224,6 +224,9 @@ const clear = () => {
   -moz-user-select: none;
   -o-user-select: none;
   user-select: none;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 #canvasWrap {
   width: 100%;
@@ -288,5 +291,11 @@ const clear = () => {
   left: 50%;
   transform: translate(-50%, -50%);
   display: none;
+}
+
+@media (max-width: 500px) {
+  .changeHeight {
+    display: none;
+  }
 }
 </style>

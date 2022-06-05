@@ -30,6 +30,7 @@ const paint = (
   // 触屏设备处理函数
   function draw1(c: TouchEvent) {
     painting = true;
+    console.log(c);
     const x = c.touches[0].pageX;
     const y = c.touches[0].pageY;
     last = [x, y];
@@ -48,12 +49,12 @@ const paint = (
   // 电脑设备处理函数
   function draw4(e: MouseEvent) {
     painting = true;
-    last = [e.pageX, e.pageY];
+    last = [e.offsetX, e.offsetY];
   }
   function draw5(e: MouseEvent) {
     if (painting) {
-      drawline(last[0], last[1], e.pageX, e.pageY);
-      last = [e.pageX, e.pageY];
+      drawline(last[0], last[1], e.offsetX, e.offsetY);
+      last = [e.offsetX, e.offsetY];
     }
   }
   // 取消事件监听
