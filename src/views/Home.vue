@@ -3,7 +3,9 @@ import HomeMenu from '@/componemt/HomeMenu.vue'
 // 添加文章
 // import AddArticle from '@/componemt/AddArticle.vue'
 // 展示所有文章
-import ShowNotes from '@/componemt/ShowNotes.vue'
+// import ShowNotes from '@/componemt/ShowNotes.vue'
+// 展示检索内容
+import ShowSearchRet from '@/componemt/ShowSearchRet.vue'
 </script>
 <template>
   <div class="wrapper">
@@ -12,7 +14,8 @@ import ShowNotes from '@/componemt/ShowNotes.vue'
     </section>
     <section class="section-main">
       <!--      <AddArticle />-->
-      <ShowNotes />
+      <!--      <ShowNotes />-->
+      <ShowSearchRet />
     </section>
   </div>
 </template>
