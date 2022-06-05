@@ -25,12 +25,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 interface DataItem {
-  title: string
+  title: string;
 }
-const current = ref(2)
+const current = ref(2);
 const data: DataItem[] = [
   {
     title: 'Ant Design Title 1'
@@ -50,7 +50,7 @@ const data: DataItem[] = [
   {
     title: 'Ant Design Title 4'
   }
-]
+];
 </script>
 
 <style lang="scss" scoped>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import HomeMenu from '@/componemt/HomeMenu.vue'
+import HomeMenu from '@/componemt/HomeMenu.vue';
 // 添加文章
 // import AddArticle from '@/componemt/AddArticle.vue'
 // 展示所有文章
@@ -7,7 +7,9 @@ import HomeMenu from '@/componemt/HomeMenu.vue'
 // 展示检索内容
 // import ShowSearchRet from '@/componemt/ShowSearchRet.vue'
 // 展示收藏夹
-import ShowFavorite from '@/componemt/ShowFavorite.vue'
+// import ShowFavorite from '@/componemt/ShowFavorite.vue'
+// 展示工具栏
+import ShowTools from '@/componemt/ShowTools.vue';
 </script>
 <template>
   <div class="wrapper">
@@ -18,7 +20,8 @@ import ShowFavorite from '@/componemt/ShowFavorite.vue'
       <!--      <AddArticle />-->
       <!--      <ShowNotes />-->
       <!--      <ShowSearchRet />-->
-      <ShowFavorite />
+      <!--      <ShowFavorite />-->
+      <ShowTools />
     </section>
   </div>
 </template>

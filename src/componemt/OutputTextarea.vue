@@ -1,23 +1,23 @@
 <script lang="ts" setup>
-import { computed, ref, toRefs, watchEffect } from 'vue'
-import * as marked from 'marked'
+import { computed, ref, toRefs, watchEffect } from 'vue';
+import * as marked from 'marked';
 
 interface Position {
-  scrollPosition: number
-  inputContent: string
+  scrollPosition: number;
+  inputContent: string;
 }
-const props = defineProps<Position>()
-const { scrollPosition, inputContent } = toRefs(props)
+const props = defineProps<Position>();
+const { scrollPosition, inputContent } = toRefs(props);
 
 const outputContent = computed(() => {
-  return marked.parse(inputContent.value)
-})
-const outputArticle = ref<HTMLInputElement>()
+  return marked.parse(inputContent.value);
+});
+const outputArticle = ref<HTMLInputElement>();
 watchEffect(() => {
   if (outputArticle.value) {
-    outputArticle.value.scrollTop = scrollPosition.value
+    outputArticle.value.scrollTop = scrollPosition.value;
   }
-})
+});
 </script>
 
 <template>

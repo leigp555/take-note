@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import SearchNull from '@/componemt/SearchNull.vue'
-import ArticlePage from '@/componemt/ArticlePage.vue'
+import SearchNull from '@/componemt/SearchNull.vue';
+import ArticlePage from '@/componemt/ArticlePage.vue';
 </script>
 
 <template>

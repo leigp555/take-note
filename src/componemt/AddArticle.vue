@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-import InputTextarea from '@/componemt/InputTextarea.vue'
-import OutputTextarea from '@/componemt/OutputTextarea.vue'
+import { ref } from 'vue';
+import InputTextarea from '@/componemt/InputTextarea.vue';
+import OutputTextarea from '@/componemt/OutputTextarea.vue';
 
-const value1 = ref<string>('test value')
-const scrollPosition = ref<number>(0)
-const inputContent = ref<string>('')
+const value1 = ref<string>('test value');
+const scrollPosition = ref<number>(0);
+const inputContent = ref<string>('');
 </script>
 
 <template>

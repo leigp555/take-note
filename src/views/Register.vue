@@ -66,12 +66,12 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, computed } from 'vue'
+import { defineComponent, reactive, computed } from 'vue';
 
 interface FormState {
-  username: string
-  password: string
-  remember: boolean
+  username: string;
+  password: string;
+  remember: boolean;
 }
 export default defineComponent({
   setup() {
@@ -79,25 +79,25 @@ export default defineComponent({
       username: '',
       password: '',
       remember: true
-    })
+    });
     const onFinish = (values: any) => {
-      console.log('Success:', values)
-    }
+      console.log('Success:', values);
+    };
 
     const onFinishFailed = (errorInfo: any) => {
-      console.log('Failed:', errorInfo)
-    }
+      console.log('Failed:', errorInfo);
+    };
     const disabled = computed(() => {
-      return !(formState.username && formState.password)
-    })
+      return !(formState.username && formState.password);
+    });
     return {
       formState,
       onFinish,
       onFinishFailed,
       disabled
-    }
+    };
   }
-})
+});
 </script>
 
 <style lang="scss" scoped>

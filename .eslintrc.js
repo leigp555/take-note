@@ -30,6 +30,10 @@ module.exports = {
     'vue/comment-directive': 0,
     'vue/no-v-model-argument': 'off',
     'no-unused-expressions':'off',
+    'no-shadow':'off',
+    'no-undef':'off',
+    'no-use-before-define':'off',
+    'semi':'off',
     'no-param-reassign': [
       'off',
       {

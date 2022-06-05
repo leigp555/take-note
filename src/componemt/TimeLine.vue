@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ClockCircleOutlined } from '@ant-design/icons-vue'
+import { ClockCircleOutlined } from '@ant-design/icons-vue';
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, Router, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, Router, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -22,15 +22,20 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Register.vue')
   },
   {
+    path: '/canvas',
+    name: 'Canvas',
+    component: () => import('@/views/Canvas.vue')
+  },
+  {
     path: '/api/test',
     name: 'Test',
     component: () => import('@/componemt/Test.vue')
   }
-]
+];
 
 const router: Router = createRouter({
   history: createWebHashHistory(),
   routes
-})
+});
 
-export default router
+export default router;

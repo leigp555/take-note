@@ -5,9 +5,12 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AAlert: typeof import('ant-design-vue/es')['Alert']
     AAvatar: typeof import('ant-design-vue/es')['Avatar']
     AButton: typeof import('ant-design-vue/es')['Button']
+    ACalendar: typeof import('ant-design-vue/es')['Calendar']
     ACheckbox: typeof import('ant-design-vue/es')['Checkbox']
+    ADrawer: typeof import('ant-design-vue/es')['Drawer']
     AEmpty: typeof import('ant-design-vue/es')['Empty']
     AForm: typeof import('ant-design-vue/es')['Form']
     AFormItem: typeof import('ant-design-vue/es')['FormItem']

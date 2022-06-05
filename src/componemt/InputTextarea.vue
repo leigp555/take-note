@@ -1,15 +1,17 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const emits = defineEmits(['update:scrollPosition', 'update:inputContent'])
-const content = ref<string>('')
-const scrollArticle = (e) => {
-  emits('update:scrollPosition', e.target.scrollTop)
-}
-const writeContent = (e) => {
-  emits('update:inputContent', content.value)
-  e.target.scrollTop = 9999
-}
+const emits = defineEmits(['update:scrollPosition', 'update:inputContent']);
+const content = ref<string>('');
+const scrollArticle = (e: Event) => {
+  const el = e.target as HTMLElement;
+  emits('update:scrollPosition', el!.scrollTop);
+};
+const writeContent = (e: InputEvent) => {
+  const el = e.target as HTMLElement;
+  emits('update:inputContent', content.value);
+  el!.scrollTop = 9999;
+};
 </script>
 
 <template>

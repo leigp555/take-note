@@ -50,7 +50,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 import {
   PlusCircleOutlined,
   SearchOutlined,
@@ -58,9 +58,9 @@ import {
   HeartOutlined,
   ToolOutlined,
   FileTextOutlined
-} from '@ant-design/icons-vue'
+} from '@ant-design/icons-vue';
 
-const selectedKeys = ref<string[]>(['1'])
+const selectedKeys = ref<string[]>(['1']);
 </script>
 <style lang="scss" scoped>
 .menu-wrap {
