@@ -5,7 +5,9 @@ import HomeMenu from '@/componemt/HomeMenu.vue'
 // 展示所有文章
 // import ShowNotes from '@/componemt/ShowNotes.vue'
 // 展示检索内容
-import ShowSearchRet from '@/componemt/ShowSearchRet.vue'
+// import ShowSearchRet from '@/componemt/ShowSearchRet.vue'
+// 展示收藏夹
+import ShowFavorite from '@/componemt/ShowFavorite.vue'
 </script>
 <template>
   <div class="wrapper">
@@ -15,7 +17,8 @@ import ShowSearchRet from '@/componemt/ShowSearchRet.vue'
     <section class="section-main">
       <!--      <AddArticle />-->
       <!--      <ShowNotes />-->
-      <ShowSearchRet />
+      <!--      <ShowSearchRet />-->
+      <ShowFavorite />
     </section>
   </div>
 </template>
