@@ -119,18 +119,18 @@ function handle4(e: MouseEvent) {
   const context = canvasEl.value!.getContext('2d');
   const x = e.pageX;
   const y = e.pageY;
-  // clearTag.value!.style.top = `${e.pageY}px`;
-  // clearTag.value!.style.left = `${e.pageX}px`;
+  clearTag.value!.style.top = `${y}px`;
+  clearTag.value!.style.left = `${x}px`;
   context!.clearRect(x, y, 10, 10);
 }
 
 function handle5(e: MouseEvent) {
   if (clearNow.value) {
-    clearTag.value!.style.display = 'block';
-    // clearTag.value!.style.top = `${e.pageY}px`;
-    // clearTag.value!.style.left = `${e.pageX}px`;
     const x = e.pageX;
     const y = e.pageY;
+    clearTag.value!.style.display = 'block';
+    clearTag.value!.style.top = `${y}px`;
+    clearTag.value!.style.left = `${x}px`;
     const context = canvasEl.value!.getContext('2d');
     context!.clearRect(x, y, clearWidth.value, clearWidth.value);
   }
@@ -141,7 +141,7 @@ function handle6() {
   clearTag.value!.style.display = 'none';
   canvasEl.value!.removeEventListener('mousedown', handle4);
   canvasEl.value!.removeEventListener('mousemove', handle5);
-  canvasEl.value!.removeEventListener('mouseup', handle6);
+  document.documentElement!.removeEventListener('mouseup', handle6);
 }
 
 const continuePaint = () => {
@@ -172,7 +172,7 @@ const clear = () => {
   } else {
     canvasEl.value!.addEventListener('mousedown', handle4);
     canvasEl.value!.addEventListener('mousemove', handle5);
-    canvasEl.value!.addEventListener('mouseup', handle6);
+    document.documentElement!.addEventListener('mouseup', handle6);
   }
 };
 </script>
@@ -280,7 +280,7 @@ const clear = () => {
         </div>
       </div>
     </a-drawer>
-    <div ref="clearTag" id="clearTag" draggable="false"></div>
+    <div ref="clearTag" id="clearTag"></div>
   </div>
 </template>
 
@@ -352,9 +352,5 @@ const clear = () => {
   left: 50%;
   transform: translate(-50%, -50%);
   display: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -o-user-select: none;
-  user-select: none;
 }
 </style>

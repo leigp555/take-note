@@ -10,6 +10,7 @@ const props = defineProps<Position>();
 const { scrollPosition, inputContent } = toRefs(props);
 
 const outputContent = computed(() => {
+  // @ts-ignore
   return marked.parse(inputContent.value);
 });
 const outputArticle = ref<HTMLInputElement>();
