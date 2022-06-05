@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import HomeMenu from '@/componemt/HomeMenu.vue'
-import ShowArticle from '@/componemt/ShowArticle.vue'
+// 添加文章
+// import AddArticle from '@/componemt/AddArticle.vue'
+// 展示所有文章
+import ShowNotes from '@/componemt/ShowNotes.vue'
 </script>
 <template>
   <div class="wrapper">
@@ -8,7 +11,8 @@ import ShowArticle from '@/componemt/ShowArticle.vue'
       <HomeMenu />
     </section>
     <section class="section-main">
-      <ShowArticle />
+      <!--      <AddArticle />-->
+      <ShowNotes />
     </section>
   </div>
 </template>
