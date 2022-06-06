@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import Calendar from '@/componemt/Calendar.vue';
+import Weather from '@/componemt/Weather.vue';
 </script>
 
 <template>
   <div class="wrap">
     <section class="favorite">
       <Calendar />
+      <Weather />
     </section>
   </div>
 </template>
