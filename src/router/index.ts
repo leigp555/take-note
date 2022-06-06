@@ -7,9 +7,29 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Home.vue'),
     children: [
       {
-        path: '/addArticle',
+        path: '/',
         name: 'AddArticle',
         component: () => import('@/component/AddArticle.vue')
+      },
+      {
+        path: '/allArticle',
+        name: 'ShowNotes',
+        component: () => import('@/component/ShowNotes.vue')
+      },
+      {
+        path: '/searchArticle',
+        name: 'ShowSearchRet',
+        component: () => import('@/component/ShowSearchRet.vue')
+      },
+      {
+        path: '/favorite',
+        name: 'ShowFavorite',
+        component: () => import('@/component/ShowFavorite.vue')
+      },
+      {
+        path: '/tools',
+        name: 'ShowTools',
+        component: () => import('@/component/ShowTools.vue')
       }
     ]
   },

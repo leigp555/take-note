@@ -1,10 +1,25 @@
+<template>
+  <div>
+    <a-button @click="confirm">Confirm</a-button>
+    <a-modal> </a-modal>
+  </div>
+</template>
 <script lang="ts" setup>
-import { Tip } from '@/utils/tip';
+import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
+import { createVNode } from 'vue';
+import { Modal } from 'ant-design-vue';
 
-const xx = () => {
-  Tip({ msg: '成功尝试', type: 'warning' });
+const ok = () => {
+  console.log('cancel');
+};
+const confirm = () => {
+  Modal.confirm({
+    title: '退出',
+    icon: createVNode(ExclamationCircleOutlined),
+    content: '确认退出？',
+    okText: '确认',
+    cancelText: '取消',
+    onOk: ok
+  });
 };
 </script>
-<template>
-  <button @click="xx">点击</button>
-</template>
