@@ -30,7 +30,6 @@ const paint = (
   // 触屏设备处理函数
   function draw1(c: TouchEvent) {
     painting = true;
-    console.log(c);
     const x = c.touches[0].pageX;
     const y = c.touches[0].pageY;
     last = [x, y];

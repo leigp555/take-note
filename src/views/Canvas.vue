@@ -95,16 +95,16 @@ const clearWidth = ref<number>(20);
 
 function handle4(e: MouseEvent) {
   clearNow.value = true;
-  const x = e.pageX;
-  const y = e.pageY;
+  const x = e.offsetX;
+  const y = e.offsetY;
   clearTag.value!.style.top = `${y}px`;
   clearTag.value!.style.left = `${x}px`;
 }
 
 function handle5(e: MouseEvent) {
   if (clearNow.value) {
-    const x = e.pageX;
-    const y = e.pageY;
+    const x = e.offsetX;
+    const y = e.offsetY;
     clearTag.value!.style.display = 'block';
     clearTag.value!.style.top = `${y}px`;
     clearTag.value!.style.left = `${x}px`;
