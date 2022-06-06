@@ -45,13 +45,29 @@
       </a-menu-item>
       <a-menu-item key="5">
         <template #icon>
+          <router-link to="/canvas">
+            <Icon name="huaban" size="small" />
+          </router-link>
+        </template>
+        <span>画板</span>
+      </a-menu-item>
+      <a-menu-item key="6">
+        <template #icon>
           <router-link to="/tools">
             <ToolOutlined />
           </router-link>
         </template>
         <span>工具</span>
       </a-menu-item>
-      <a-menu-item key="6" style="position: relative; bottom: -40%">
+      <a-menu-item key="7">
+        <template #icon>
+          <router-link to="/recycle">
+            <DeleteOutlined />
+          </router-link>
+        </template>
+        <span>回收站</span>
+      </a-menu-item>
+      <a-menu-item key="8" style="position: relative; bottom: -20%">
         <template #icon>
           <div @click="confirm">
             <LoginOutlined />
@@ -68,6 +84,7 @@
 <script lang="ts" setup>
 import { ref, createVNode } from 'vue';
 import {
+  DeleteOutlined,
   PlusCircleOutlined,
   SearchOutlined,
   LoginOutlined,
@@ -78,6 +95,7 @@ import {
 } from '@ant-design/icons-vue';
 import { useRouter } from 'vue-router';
 import { Modal } from 'ant-design-vue';
+import Icon from '@/component/Icon.vue';
 
 const router = useRouter();
 const selectedKeys = ref<string[]>(['1']);

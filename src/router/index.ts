@@ -30,6 +30,16 @@ const routes: Array<RouteRecordRaw> = [
         path: '/tools',
         name: 'ShowTools',
         component: () => import('@/component/ShowTools.vue')
+      },
+      {
+        path: '/canvas',
+        name: 'Canvas',
+        component: () => import('@/views/Canvas.vue')
+      },
+      {
+        path: '/recycle',
+        name: 'ShowRecycle',
+        component: () => import('@/component/ShowRecycle.vue')
       }
     ]
   },
@@ -47,11 +57,6 @@ const routes: Array<RouteRecordRaw> = [
     path: '/register',
     name: 'Register',
     component: () => import('@/views/Register.vue')
-  },
-  {
-    path: '/canvas',
-    name: 'Canvas',
-    component: () => import('@/views/Canvas.vue')
   },
   {
     path: '/api/test',

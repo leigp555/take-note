@@ -241,7 +241,8 @@ const clear = () => {
   .selector {
     position: fixed;
     top: 10px;
-    left: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     gap: 10px;
     justify-content: start;
