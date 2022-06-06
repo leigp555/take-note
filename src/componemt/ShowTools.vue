@@ -1,14 +1,25 @@
 <script lang="ts" setup>
 import Calendar from '@/componemt/Calendar.vue';
 import Weather from '@/componemt/Weather.vue';
+import Translate from '@/componemt/Translate.vue';
 </script>
 
 <template>
   <div class="wrap">
-    <section class="favorite">
-      <Calendar />
-      <Weather />
-    </section>
+    <div class="tools">
+      <section class="section calendar-section">
+        <div>日历</div>
+        <Calendar />
+      </section>
+      <section class="section weather-section">
+        <div>天气</div>
+        <Weather />
+      </section>
+      <section class="section weather-section">
+        <div>翻译</div>
+        <Translate />
+      </section>
+    </div>
   </div>
 </template>
 
@@ -17,7 +28,7 @@ import Weather from '@/componemt/Weather.vue';
   display: flex;
   height: 100%;
   position: relative;
-  .favorite {
+  .tools {
     position: absolute;
     max-height: 100%;
     top: 0;
@@ -27,6 +38,14 @@ import Weather from '@/componemt/Weather.vue';
     padding: 10vh 20vw;
     overflow-y: scroll;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
     &::-webkit-scrollbar {
       width: 8px;
       height: 8px;
