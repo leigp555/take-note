@@ -4,7 +4,14 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/Home.vue')
+    component: () => import('@/views/Home.vue'),
+    children: [
+      {
+        path: '/addArticle',
+        name: 'AddArticle',
+        component: () => import('@/component/AddArticle.vue')
+      }
+    ]
   },
   {
     path: '/test',
@@ -29,7 +36,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/api/test',
     name: 'Test',
-    component: () => import('@/componemt/Test.vue')
+    component: () => import('@/component/Test.vue')
   }
 ];
 

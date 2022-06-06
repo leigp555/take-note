@@ -1,21 +1,22 @@
-<script lang="ts" setup>
-import ArticlePage from '@/componemt/ArticlePage.vue';
-</script>
-
 <template>
   <div class="wrap">
-    <section class="favorite">
+    <section class="time-line">
+      <TimeLine />
       <ArticlePage />
     </section>
   </div>
 </template>
+<script lang="ts" setup>
+import TimeLine from '@/component/TimeLine.vue';
+import ArticlePage from '@/component/ArticlePage.vue';
+</script>
 
 <style lang="scss" scoped>
 .wrap {
   display: flex;
   height: 100%;
   position: relative;
-  .favorite {
+  .time-line {
     position: absolute;
     max-height: 100%;
     top: 0;

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import Calendar from '@/componemt/Calendar.vue';
-import Weather from '@/componemt/Weather.vue';
-import Translate from '@/componemt/Translate.vue';
+import Calendar from '@/component/Calendar.vue';
+import Weather from '@/component/Weather.vue';
+import Translate from '@/component/Translate.vue';
 </script>
 
 <template>
