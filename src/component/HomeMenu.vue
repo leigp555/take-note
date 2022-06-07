@@ -8,7 +8,9 @@
       class="menu-wrap"
     >
       <section class="menu-inner-avatar">
-        <a-avatar src="https://joeschmoe.io/api/v1/random" />
+        <router-link to="/info"
+          ><a-avatar src="https://joeschmoe.io/api/v1/random"
+        /></router-link>
       </section>
 
       <a-menu-item key="1">

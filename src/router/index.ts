@@ -40,6 +40,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/recycle',
         name: 'ShowRecycle',
         component: () => import('@/component/ShowRecycle.vue')
+      },
+      {
+        path: '/info',
+        name: 'Info',
+        component: () => import('@/component/ShowInfo.vue')
       }
     ]
   },
