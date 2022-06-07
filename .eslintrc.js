@@ -34,6 +34,9 @@ module.exports = {
     'no-undef':'off',
     'no-use-before-define':'off',
     'semi':'off',
+    'prefer-regex-literals':'off',
+    'prefer-promise-reject-errors':'off',
+    'func-names':'off',
     'no-param-reassign': [
       'off',
       {

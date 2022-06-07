@@ -67,10 +67,41 @@ const transImg = {
     return canvas;
   },
   // canvas内容转化成url
-  canvasToUrl: (canvas: HTMLElement, quality: number, type: string) => {
-    // @ts-ignore
-    return canvas.toDataURL(type || 'image', quality || 0.99);
+  canvasToUrl: (
+    canvas: HTMLCanvasElement,
+    quality: number,
+    type: string,
+    background: string,
+    height: number
+  ) => {
+    return new Promise((resolve, reject) => {
+      // 转成图片
+      const url = canvas.toDataURL(type || 'image/png', quality || 1);
+      const image = new Image();
+      image.src = url;
+      // 画在新的canvas上
+      const createCvs = document.createElement('canvas');
+      const ctx = createCvs.getContext('2d');
+      createCvs.width = document.body.getBoundingClientRect().width;
+      createCvs.height = height;
+      ctx!.fillStyle = background || 'white';
+      ctx!.fillRect(0, 0, document.body.getBoundingClientRect().width, height);
+      setTimeout(() => {
+        ctx!.drawImage(
+          image,
+          0,
+          0,
+          document.body.getBoundingClientRect().width,
+          height
+        );
+      });
+      setTimeout(() => {
+        resolve(createCvs.toDataURL(type || 'image/png', quality || 1));
+      });
+      reject('err');
+    });
   },
+
   // canvas内容转化成img标签
   canvasToImg: (canvas: HTMLCanvasElement, quality: number, type: string) => {
     return new Promise((resolve, reject) => {

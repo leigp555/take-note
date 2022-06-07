@@ -139,6 +139,47 @@ const clear = () => {
     document.documentElement!.addEventListener('mouseup', handle6);
   }
 };
+
+// 将base64转换为blob
+function dataURLtoBlob(dataurl) {
+  const arr = dataurl.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new Blob([u8arr], { type: mime });
+}
+
+// 调用
+const exportFile = async () => {
+  const y = Math.floor(Math.random() * 10000);
+  const filename = `${y}.png`;
+  const x = await transImg.canvasToUrl(
+    canvasEl.value,
+    1,
+    'image/png',
+    canvasColor.value,
+    canvasHeight.value
+  );
+  const blob = dataURLtoBlob(x);
+  if ('download' in document.createElement('a')) {
+    // 支持a标签download的浏览器
+    const link = document.createElement('a'); // 创建a标签
+    link.download = filename; // a标签添加属性
+    link.style.display = 'none';
+    link.href = URL.createObjectURL(blob);
+    document.body.appendChild(link);
+    link.click(); // 执行下载
+    URL.revokeObjectURL(link.href); // 释放url
+    document.body.removeChild(link); // 释放标签
+  } else {
+    // 其他浏览器
+    navigator.msSaveBlob(blob, filename);
+  }
+};
 </script>
 
 <template>
@@ -154,6 +195,7 @@ const clear = () => {
         <a-button type="primary" @click="resetCanvas">清空画布内容</a-button>
         <a-button type="primary" id="clear" @click.prevent="clear">橡皮擦</a-button>
         <a-button type="primary" @click="continuePaint">继续绘画</a-button>
+        <a-button type="primary" @click="exportFile">导出为文件</a-button>
       </div>
     </div>
     <a-drawer
@@ -222,7 +264,6 @@ const clear = () => {
   position: relative;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -o-user-select: none;
   user-select: none;
   height: 100%;
   overflow-y: scroll;
