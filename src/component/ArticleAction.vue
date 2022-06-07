@@ -1,6 +1,9 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, toRefs } from 'vue';
 
+const emits = defineEmits(['update:inputContent']);
+const props = defineProps<{ inputContent: string }>();
+const { inputContent } = toRefs(props);
 const text = ref<HTMLTextAreaElement>();
 onMounted(() => {
   text.value = document.getElementById('article-text') as HTMLTextAreaElement;
@@ -40,6 +43,7 @@ const insert = (type: string) => {
   } else if (type === 'link') {
     insertAtCursor(text.value!, '[链接描述]', '(链接地址)');
   }
+  emits('update:inputContent', inputContent.value);
 };
 </script>
 
