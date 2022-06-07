@@ -140,34 +140,21 @@ const clear = () => {
   }
 };
 
-// 将base64转换为blob
-function dataURLtoBlob(dataurl: string) {
-  const arr = dataurl.split(',');
-  const mime = arr[0].match(/:(.*?);/)[1];
-  const bstr = atob(arr[1]);
-  let n = bstr.length;
-  const u8arr = new Uint8Array(n);
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
-  }
-  return new Blob([u8arr], { type: mime });
-}
-
-// 调用
+// 导出为图片文件
 const exportFile = async () => {
   // 设置文件名
   const prefix = Math.floor(Math.random() * 10000);
   const filename = `${prefix}.png`;
   // 获取canvas的url/base64
-  const url = await transImg.canvasToUrl(
-    canvasEl.value,
+  const url = (await transImg.canvasToUrl(
+    canvasEl.value!,
     1,
     'image/png',
     canvasColor.value,
     canvasHeight.value
-  );
+  )) as string;
   // base64转blob
-  const blob = dataURLtoBlob(url);
+  const blob = transImg.dataURLtoBlob(url);
   // 利用a标签对上面生成的文件进行下载
   if ('download' in document.createElement('a')) {
     // 支持a标签download的浏览器
@@ -179,9 +166,6 @@ const exportFile = async () => {
     link.click(); // 执行下载
     URL.revokeObjectURL(link.href); // 释放url
     document.body.removeChild(link); // 释放标签
-  } else {
-    // 其他浏览器
-    navigator.msSaveBlob(blob, filename);
   }
 };
 </script>
