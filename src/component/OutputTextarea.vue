@@ -42,7 +42,7 @@ watchEffect(() => {
     left: 0;
     overflow-y: scroll;
     height: 100%;
-    padding: 20px 20px 10px 20px;
+    padding: 20px 20px 40px 20px;
     width: 100%;
     background-color: #ffffff;
     border: none;
