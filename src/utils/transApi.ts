@@ -66,7 +66,7 @@ const transImg = {
     ctx!.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, width, height);
     return canvas;
   },
-  // canvas内容转化成url
+  // canvas内容转化成img然后将img画在另一个新的canvas上以达到设置canvas背景颜色的效果
   canvasToUrl: (
     canvas: HTMLCanvasElement,
     quality: number,
@@ -79,14 +79,14 @@ const transImg = {
       const url = canvas.toDataURL(type || 'image/png', quality || 1);
       const image = new Image();
       image.src = url;
-      // 画在新的canvas上
+      // 将图片画在新的canvas上
       const createCvs = document.createElement('canvas');
       const ctx = createCvs.getContext('2d');
       createCvs.width = document.body.getBoundingClientRect().width;
       createCvs.height = height;
       ctx!.fillStyle = background || 'white';
       ctx!.fillRect(0, 0, document.body.getBoundingClientRect().width, height);
-      setTimeout(() => {
+      image.onload = () => {
         ctx!.drawImage(
           image,
           0,
@@ -94,11 +94,11 @@ const transImg = {
           document.body.getBoundingClientRect().width,
           height
         );
-      });
-      setTimeout(() => {
         resolve(createCvs.toDataURL(type || 'image/png', quality || 1));
-      });
-      reject('err');
+      };
+      image.onerror = (err) => {
+        reject(err);
+      };
     });
   },
 
