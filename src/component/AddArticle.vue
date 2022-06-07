@@ -18,7 +18,7 @@ const inputContent = ref<string>('');
       <a-button type="primary">发布文章</a-button>
     </nav>
     <section>
-      <ArticleAction v-model:inputContent="inputContent" :inputContent="inputContent" />
+      <ArticleAction />
     </section>
     <main class="article-wrap">
       <section class="input-textarea">

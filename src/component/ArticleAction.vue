@@ -1,9 +1,6 @@
 <script lang="ts" setup>
-import { onMounted, ref, toRefs } from 'vue';
+import { onMounted, ref } from 'vue';
 
-const emits = defineEmits(['update:inputContent']);
-const props = defineProps<{ inputContent: string }>();
-const { inputContent } = toRefs(props);
 const text = ref<HTMLTextAreaElement>();
 onMounted(() => {
   text.value = document.getElementById('article-text') as HTMLTextAreaElement;
@@ -13,7 +10,7 @@ function insertAtCursor(
   leftValue: string,
   rightValue: string
 ) {
-  if (contentEl.selectionStart || contentEl.selectionStart.toString() === '0') {
+  if (contentEl.selectionStart) {
     const startPos = contentEl.selectionStart;
     const endPos = contentEl.selectionEnd;
     contentEl.value = `${
@@ -21,8 +18,6 @@ function insertAtCursor(
       leftValue +
       contentEl.value.substring(startPos, endPos)
     }${rightValue}${contentEl.value.substring(endPos, contentEl.value.length)}`;
-  } else {
-    contentEl.value = contentEl.value + leftValue + rightValue;
   }
 }
 const insert = (type: string) => {
@@ -43,7 +38,6 @@ const insert = (type: string) => {
   } else if (type === 'link') {
     insertAtCursor(text.value!, '[链接描述]', '(链接地址)');
   }
-  emits('update:inputContent', inputContent.value);
 };
 </script>
 
