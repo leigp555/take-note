@@ -17,6 +17,7 @@ const writeContent = (e: InputEvent) => {
 <template>
   <div class="write-article-wrap">
     <textarea
+      id="article-text"
       class="article-write"
       @scroll="scrollArticle"
       @input="writeContent"
@@ -29,6 +30,7 @@ const writeContent = (e: InputEvent) => {
 .write-article-wrap {
   height: 100%;
   display: flex;
+  position: relative;
   .article-write {
     padding: 20px 10px 40px 10px;
     width: 100%;

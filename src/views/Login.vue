@@ -41,7 +41,7 @@
               <a href="">忘记密码?</a>
             </div>
             <div class="goto-register">
-              <a href="">免费注册</a>
+              <router-link to="/register">免费注册</router-link>
             </div>
           </div>
         </a-form-item>

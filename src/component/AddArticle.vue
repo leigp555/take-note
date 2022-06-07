@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import InputTextarea from '@/component/InputTextarea.vue';
 import OutputTextarea from '@/component/OutputTextarea.vue';
+import ArticleAction from '@/component/ArticleAction.vue';
 
 const value1 = ref<string>('test value');
 const scrollPosition = ref<number>(0);
@@ -16,6 +17,9 @@ const inputContent = ref<string>('');
       <a-button type="primary">保存为草稿</a-button>
       <a-button type="primary">发布文章</a-button>
     </nav>
+    <section>
+      <ArticleAction />
+    </section>
     <main class="article-wrap">
       <section class="input-textarea">
         <InputTextarea
