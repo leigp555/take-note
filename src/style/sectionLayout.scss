@@ -1,0 +1,32 @@
+@import '../style/golbalScroll';
+$item_padding:(50px 0);
+$section_max_width:800px;
+.wrap {
+  height: 100%;
+  position: relative;
+  .section-item {
+    padding: $item_padding;
+    position: absolute;
+    max-height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    .article-list {
+      flex-grow: 10;
+      max-width: $section_max_width;
+    }
+    &::-webkit-scrollbar {
+      @include scrollbar;
+    }
+    &::-webkit-scrollbar-thumb {
+      @include scrollbarThumb;
+    }
+    &::-webkit-scrollbar-track {
+      @include scrollbarTrack;
+    }
+  }
+}

@@ -18,7 +18,7 @@
         </template>
       </a-list>
     </section>
-    <section style="display: flex; justify-content: center; margin-top: 50px">
+    <section class="article-nav">
       <a-pagination v-model:current="current" :total="100" show-less-items />
     </section>
   </div>
@@ -30,7 +30,9 @@ import { ref } from 'vue';
 interface DataItem {
   title: string;
 }
-const current = ref(2);
+const current = ref(1);
+
+// 一页只展示5个
 const data: DataItem[] = [
   {
     title: 'Ant Design Title 1'
@@ -46,19 +48,22 @@ const data: DataItem[] = [
   },
   {
     title: 'Ant Design Title 4'
-  },
-  {
-    title: 'Ant Design Title 4'
   }
 ];
 </script>
 
 <style lang="scss" scoped>
+$navTop: 50px;
 .wrap-list {
   max-height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  .article-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: $navTop;
+  }
 }
 </style>

@@ -1,53 +1,39 @@
 <template>
-  <div class="wrap">
-    <section class="section-item">
-      <div class="timeline"><TimeLine /></div>
-      <div class="article-list"><ArticlePage /></div>
-    </section>
+  <div class="list-wrap">
+    <a-tabs v-model:activeKey="activeKey" centered style="border: none; outline: none">
+      <a-tab-pane key="1" tab="时间轴"> </a-tab-pane>
+      <a-tab-pane key="2" tab="文章列表" force-render> </a-tab-pane>
+    </a-tabs>
+    <div class="wrap">
+      <section class="section-item">
+        <div class="article-list">
+          <Component :is="component.vNode" :key="component.id" />
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
+import { computed, ref } from 'vue';
 import TimeLine from '@/component/TimeLine.vue';
 import ArticlePage from '@/component/ArticlePage.vue';
+
+const activeKey = ref<string>('1');
+const component = computed(() => {
+  return activeKey.value === '1'
+    ? { vNode: TimeLine, id: 'TimeLine' }
+    : { vNode: ArticlePage, id: 'ArticlePage' };
+});
 </script>
 
 <style lang="scss" scoped>
-.wrap {
+@import '../style/sectionLayout';
+.list-wrap {
+  padding: 50px 0 60px 0;
   height: 100%;
-  position: relative;
-  //border: 10px solid red;
-  .section-item {
-    padding: 80px 0;
-    position: absolute;
-    max-height: 100%;
-    top: 0;
-    left: 0;
-    width: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    display: flex;
-    justify-content: center;
-    .timeline {
-      flex-grow: 10;
-      max-width: 800px;
-    }
-    .article-list {
-      flex-grow: 10;
-      max-width: 800px;
-    }
-    &::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    &::-webkit-scrollbar-thumb {
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      background-color: #c3c3c3;
-    }
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-  }
 }
+</style>
+
+<style lang="scss">
+@import '../style/antd.scss';
 </style>

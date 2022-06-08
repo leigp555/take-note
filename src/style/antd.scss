@@ -1,0 +1,20 @@
+//设置antd的tab组件
+$selected: #41b883;
+$normal: #001529;
+.ant-tabs-tab-btn {
+  color: $normal;
+  &:active {
+    color: $normal;
+  }
+  &:hover {
+    color: $normal;
+  }
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: $selected;
+}
+.ant-tabs > .ant-tabs-nav,
+.ant-tabs > div > .ant-tabs-nav {
+  position: static;
+}
+

@@ -1,23 +1,7 @@
-<script lang="ts" setup>
-import { ref } from 'vue';
-
-const value = ref<string>('');
-const onSearch = (searchValue: string) => {
-  console.log('use value', searchValue);
-  console.log('or use this.value', value.value);
-};
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <div>
-    <a-input-search
-      v-model:value="value"
-      placeholder="input search text"
-      enter-button
-      @search="onSearch"
-    />
-  </div>
-  <div style="padding-top: 30vh">
+  <div class="null-wrap">
     <a-empty>
       <template #description>
         <span> 没有相应的内容 </span>
@@ -26,4 +10,8 @@ const onSearch = (searchValue: string) => {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.null-wrap {
+  padding-top: 30vh;
+}
+</style>
