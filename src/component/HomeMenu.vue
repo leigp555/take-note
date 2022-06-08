@@ -6,6 +6,7 @@
       theme="dark"
       :inline-collapsed="true"
       class="menu-wrap"
+      title="个人信息"
     >
       <section class="menu-inner-avatar">
         <router-link to="/info"
@@ -21,31 +22,45 @@
         </template>
         <span>添加</span>
       </a-menu-item>
-      <a-menu-item key="2">
+      <a-sub-menu key="sub1">
         <template #icon>
-          <router-link to="allArticle">
-            <FileTextOutlined />
-          </router-link>
+          <folder-open-outlined />
         </template>
-        <span>文章</span>
-      </a-menu-item>
-      <a-menu-item key="3">
-        <template #icon>
-          <router-link to="/searchArticle">
-            <SearchOutlined />
-          </router-link>
-        </template>
-        <span>搜索</span>
-      </a-menu-item>
-      <a-menu-item key="4">
-        <template #icon>
-          <router-link to="/favorite">
-            <HeartOutlined />
-          </router-link>
-        </template>
-        <span>收藏</span>
-      </a-menu-item>
-      <a-menu-item key="5">
+        <template #title>Navigation One</template>
+        <a-menu-item key="2"
+          ><template #icon>
+            <router-link to="allArticle">
+              <FileTextOutlined />
+            </router-link>
+          </template>
+          <span>文章</span></a-menu-item
+        >
+        <a-menu-item key="3">
+          <template #icon>
+            <router-link to="/searchArticle">
+              <SearchOutlined />
+            </router-link>
+          </template>
+          <span>搜索</span></a-menu-item
+        >
+        <a-menu-item key="4">
+          <template #icon>
+            <router-link to="/favorite">
+              <HeartOutlined />
+            </router-link>
+          </template>
+          <span>收藏</span></a-menu-item
+        >
+        <a-menu-item key="5">
+          <template #icon>
+            <router-link to="/recycle">
+              <DeleteOutlined />
+            </router-link>
+          </template>
+          <span>回收站</span></a-menu-item
+        >
+      </a-sub-menu>
+      <a-menu-item key="6">
         <template #icon>
           <router-link to="/canvas">
             <Icon name="huaban" size="small" />
@@ -53,7 +68,7 @@
         </template>
         <span>画板</span>
       </a-menu-item>
-      <a-menu-item key="6">
+      <a-menu-item key="7">
         <template #icon>
           <router-link to="/tools">
             <ToolOutlined />
@@ -61,15 +76,8 @@
         </template>
         <span>工具</span>
       </a-menu-item>
-      <a-menu-item key="7">
-        <template #icon>
-          <router-link to="/recycle">
-            <DeleteOutlined />
-          </router-link>
-        </template>
-        <span>回收站</span>
-      </a-menu-item>
-      <a-menu-item key="8" style="position: relative; bottom: -20%">
+
+      <a-menu-item key="8" style="position: relative; bottom: -45%">
         <template #icon>
           <div @click="confirm">
             <LoginOutlined />
@@ -93,6 +101,7 @@ import {
   HeartOutlined,
   ToolOutlined,
   FileTextOutlined,
+  FolderOpenOutlined,
   ExclamationCircleOutlined
 } from '@ant-design/icons-vue';
 import { useRouter } from 'vue-router';
