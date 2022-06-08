@@ -1,12 +1,12 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
 // 如果编辑器提示 path 模块找不到，则可以安装一下 @types/node -> npm i @types/node -D
-import { resolve } from 'path'
-import { viteMockServe } from 'vite-plugin-mock'
-import viteCompression from 'vite-plugin-compression'
-import styleImport, { VantResolve } from 'vite-plugin-style-import'
-import Components from 'unplugin-vue-components/vite'
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
+import { resolve } from 'path';
+import { viteMockServe } from 'vite-plugin-mock';
+import viteCompression from 'vite-plugin-compression';
+import styleImport, { VantResolve } from 'vite-plugin-style-import';
+import Components from 'unplugin-vue-components/vite';
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 
 export default defineConfig({
   plugins: [
@@ -57,4 +57,4 @@ export default defineConfig({
       }
     }
   }
-})
+});

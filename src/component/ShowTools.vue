@@ -7,15 +7,15 @@ import Translate from '@/component/Translate.vue';
 <template>
   <div class="wrap">
     <div class="tools">
-      <section class="section calendar-section">
+      <section class="section calendar-section gradient-border">
         <div>日历</div>
         <Calendar />
       </section>
-      <section class="section weather-section">
+      <section class="section weather-section gradient-border">
         <div>天气</div>
         <Weather />
       </section>
-      <section class="section weather-section">
+      <section class="section weather-section gradient-border">
         <div>翻译</div>
         <Translate />
       </section>
@@ -24,6 +24,7 @@ import Translate from '@/component/Translate.vue';
 </template>
 
 <style lang="scss" scoped>
+@import '../style/gradient_border';
 .wrap {
   display: flex;
   height: 100%;
@@ -40,11 +41,19 @@ import Translate from '@/component/Translate.vue';
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 120px;
     .section {
+      background: linear-gradient(
+        145deg,
+        rgba(94, 153, 154, 1) 0%,
+        rgba(140, 204, 157, 1) 50%,
+        rgba(125, 188, 156, 1) 100%
+      );
+      padding: 30px 20px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 50px;
+      max-width: 800px;
     }
     &::-webkit-scrollbar {
       width: 8px;
