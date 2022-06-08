@@ -35,17 +35,20 @@ const inputContent = ref<string>('');
 </template>
 
 <style lang="scss" scoped>
+$wrapHeight: 100%;
+$articleTitleMargin: 10px;
+$articleTitleGap: 10px;
 .wrap {
-  height: 100%;
+  height: $wrapHeight;
   display: flex;
   flex-direction: column;
   .title-wrap {
-    margin: 10px;
+    margin: $articleTitleMargin;
     display: flex;
     white-space: nowrap;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: $articleTitleGap;
     .title {
       flex-shrink: 1;
     }

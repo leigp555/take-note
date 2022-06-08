@@ -314,13 +314,14 @@ const exportFile = async () => {
 #clearTag {
   width: 40px;
   height: 40px;
-  background: red;
   position: absolute;
   z-index: 100;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: none;
+  background-image: url('../assets/clear.png');
+  background-size: cover;
 }
 
 @media (max-width: 500px) {

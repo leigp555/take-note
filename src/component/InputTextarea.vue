@@ -27,6 +27,7 @@ const writeContent = (e: InputEvent) => {
 </template>
 
 <style scoped lang="scss">
+@import '../style/golbalScroll';
 .write-article-wrap {
   height: 100%;
   display: flex;
@@ -39,17 +40,13 @@ const writeContent = (e: InputEvent) => {
     border: none;
     outline: none;
     &::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
+      @include scrollbar;
     }
     &::-webkit-scrollbar-thumb {
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      background-color: #c3c3c3;
+      @include scrollbarThumb;
     }
     &::-webkit-scrollbar-track {
-      background-color: transparent;
+      @include scrollbarTrack;
     }
   }
 }
