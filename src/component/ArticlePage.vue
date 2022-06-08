@@ -1,6 +1,6 @@
 <template>
-  <div class="wrap">
-    <section class="wrap">
+  <div class="wrap-list">
+    <section>
       <a-list item-layout="horizontal" :data-source="data">
         <template #renderItem="{ item }">
           <a-list-item>
@@ -54,7 +54,7 @@ const data: DataItem[] = [
 </script>
 
 <style lang="scss" scoped>
-.wrap {
+.wrap-list {
   max-height: 100%;
   width: 100%;
   display: flex;

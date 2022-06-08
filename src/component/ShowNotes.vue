@@ -1,8 +1,8 @@
 <template>
   <div class="wrap">
-    <section class="time-line">
-      <TimeLine />
-      <ArticlePage />
+    <section class="section-item">
+      <div class="timeline"><TimeLine /></div>
+      <div class="article-list"><ArticlePage /></div>
     </section>
   </div>
 </template>
@@ -13,19 +13,28 @@ import ArticlePage from '@/component/ArticlePage.vue';
 
 <style lang="scss" scoped>
 .wrap {
-  display: flex;
   height: 100%;
   position: relative;
-  .time-line {
+  //border: 10px solid red;
+  .section-item {
+    padding: 80px 0;
     position: absolute;
     max-height: 100%;
     top: 0;
     left: 0;
-    flex-grow: 1;
     width: 100%;
-    padding: 10vh 20vw;
     overflow-y: scroll;
     overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    .timeline {
+      flex-grow: 10;
+      max-width: 800px;
+    }
+    .article-list {
+      flex-grow: 10;
+      max-width: 800px;
+    }
     &::-webkit-scrollbar {
       width: 8px;
       height: 8px;

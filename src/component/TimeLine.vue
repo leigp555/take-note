@@ -3,7 +3,7 @@ import { ClockCircleOutlined } from '@ant-design/icons-vue';
 </script>
 
 <template>
-  <div>
+  <div class="wrap-list">
     <a-timeline mode="alternate">
       <a-timeline-item v-for="i in 50" :key="i">
         <template #dot><ClockCircleOutlined style="font-size: 14px" /></template>
@@ -14,4 +14,9 @@ import { ClockCircleOutlined } from '@ant-design/icons-vue';
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.wrap-list {
+  max-height: 100%;
+  width: 100%;
+}
+</style>
