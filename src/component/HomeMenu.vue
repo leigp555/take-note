@@ -6,12 +6,18 @@
       theme="dark"
       :inline-collapsed="true"
       class="menu-wrap"
-      title="个人信息"
     >
       <section class="menu-inner-avatar">
-        <router-link to="/info"
-          ><a-avatar src="https://joeschmoe.io/api/v1/random"
-        /></router-link>
+        <a-tooltip placement="rightBottom">
+          <template #title>
+            <span>个人信息</span>
+          </template>
+          <div style="width: 100%; display: flex; justify-content: center">
+            <router-link to="/info"
+              ><a-avatar src="https://joeschmoe.io/api/v1/random"
+            /></router-link>
+          </div>
+        </a-tooltip>
       </section>
 
       <a-menu-item key="1">
