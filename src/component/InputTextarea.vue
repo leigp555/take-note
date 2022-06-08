@@ -28,6 +28,7 @@ const writeContent = (e: InputEvent) => {
 
 <style scoped lang="scss">
 @import '../style/golbalScroll';
+$articleBackground: #f5f5f5;
 .write-article-wrap {
   height: 100%;
   display: flex;
@@ -36,7 +37,7 @@ const writeContent = (e: InputEvent) => {
     padding: 20px 10px 40px 10px;
     width: 100%;
     justify-items: stretch;
-    background-color: #f5f5f5;
+    background-color: $articleBackground;
     border: none;
     outline: none;
     &::-webkit-scrollbar {
