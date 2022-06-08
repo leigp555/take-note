@@ -33,6 +33,9 @@ watchEffect(() => {
 </template>
 
 <style lang="scss" scoped>
+@import '../style/golbalScroll';
+$articleBackground: #ffffff;
+$articleInnnerPadding: (20px 20px 40px 20px);
 .read-article {
   height: 100%;
   position: relative;
@@ -42,23 +45,19 @@ watchEffect(() => {
     left: 0;
     overflow-y: scroll;
     height: 100%;
-    padding: 20px 20px 40px 20px;
+    padding: $articleInnnerPadding;
     width: 100%;
-    background-color: #ffffff;
+    background-color: $articleBackground;
     border: none;
     outline: none;
     &::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      @include scrollbar;
     }
     &::-webkit-scrollbar-thumb {
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      background-color: #c3c3c3;
+      @include scrollbarThumb;
     }
     &::-webkit-scrollbar-track {
-      background-color: transparent;
+      @include scrollbarTrack;
     }
   }
 }

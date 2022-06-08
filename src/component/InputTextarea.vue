@@ -29,12 +29,13 @@ const writeContent = (e: InputEvent) => {
 <style scoped lang="scss">
 @import '../style/golbalScroll';
 $articleBackground: #f5f5f5;
+$articleInnnerPadding: (20px 10px 40px 10px);
 .write-article-wrap {
   height: 100%;
   display: flex;
   position: relative;
   .article-write {
-    padding: 20px 10px 40px 10px;
+    padding: $articleInnnerPadding;
     width: 100%;
     justify-items: stretch;
     background-color: $articleBackground;
