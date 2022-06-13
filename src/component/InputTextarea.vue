@@ -15,12 +15,10 @@ const scrollArticle = (e: Event) => {
   });
 };
 // 获取输入框的内容
-const writeContent = (e: InputEvent) => {
-  const el = e.target as HTMLElement;
+const writeContent = () => {
   store.$patch((store) => {
     store.initArticle = content.value;
   });
-  el!.scrollTop = 9999;
 };
 </script>
 

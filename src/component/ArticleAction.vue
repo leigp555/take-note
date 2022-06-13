@@ -1,23 +1,36 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useCreateArticle } from '@/store/createArticle';
 
 const text = ref<HTMLTextAreaElement>();
 onMounted(() => {
   text.value = document.getElementById('article-text') as HTMLTextAreaElement;
 });
+const store = useCreateArticle();
+const { initArticle } = storeToRefs(store);
 function insertAtCursor(
   contentEl: HTMLTextAreaElement,
   leftValue: string,
   rightValue: string
 ) {
+  const startPos = contentEl.selectionStart;
+  const endPos = contentEl.selectionEnd;
   if (contentEl.selectionStart) {
-    const startPos = contentEl.selectionStart;
-    const endPos = contentEl.selectionEnd;
     contentEl.value = `${
-      contentEl.value.substring(0, startPos) +
+      initArticle.value.substring(0, startPos) +
       leftValue +
-      contentEl.value.substring(startPos, endPos)
-    }${rightValue}${contentEl.value.substring(endPos, contentEl.value.length)}`;
+      initArticle.value.substring(startPos, endPos)
+    }${rightValue}${initArticle.value.substring(endPos, initArticle.value.length)}`;
+    store.$patch((state) => {
+      state.initArticle = `${
+        initArticle.value.substring(0, startPos) +
+        leftValue +
+        initArticle.value.substring(startPos, endPos)
+      }${rightValue}${initArticle.value.substring(endPos, initArticle.value.length)}`;
+    });
+  } else {
+    contentEl.value = leftValue + rightValue;
   }
 }
 const insert = (type: string) => {
