@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import InputTextarea from '@/component/InputTextarea.vue';
 import OutputTextarea from '@/component/OutputTextarea.vue';
@@ -9,10 +9,23 @@ import { useCreateArticle } from '@/store/createArticle';
 const store = useCreateArticle();
 const { initTitle } = storeToRefs(store);
 const title = ref<string>(initTitle.value);
+onMounted(() => {
+  title.value = initTitle.value;
+});
+// 保存标题
 const changeTitle = () => {
   store.$patch((state) => {
     state.initTitle = title.value;
   });
+  store.saveLocal();
+};
+// 保存为草稿
+const saveDraft = () => {
+  store.saveDraft();
+};
+// 正式发布为文章
+const publish = () => {
+  store.publish();
 };
 </script>
 
@@ -26,9 +39,10 @@ const changeTitle = () => {
         show-count
         :maxlength="100"
         @change="changeTitle"
+        placeholder="请输入标题"
       />
-      <a-button type="primary">保存为草稿</a-button>
-      <a-button type="primary">发布文章</a-button>
+      <a-button type="primary" @click="saveDraft">保存为草稿</a-button>
+      <a-button type="primary" @click="publish">发布文章</a-button>
     </nav>
     <section>
       <ArticleAction />

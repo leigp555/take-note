@@ -8,7 +8,7 @@ const AUTH_TOKEN: () => string | boolean = () =>
 
 const instance = axios.create();
 // 设置基本请求源
-instance.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+// instance.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 instance.defaults.timeout = 8000;
 instance.defaults.withCredentials = false;
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';

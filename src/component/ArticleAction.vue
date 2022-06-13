@@ -29,8 +29,10 @@ function insertAtCursor(
         initArticle.value.substring(startPos, endPos)
       }${rightValue}${initArticle.value.substring(endPos, initArticle.value.length)}`;
     });
+    store.saveLocal();
   } else {
     contentEl.value = leftValue + rightValue;
+    store.saveLocal();
   }
 }
 const insert = (type: string) => {

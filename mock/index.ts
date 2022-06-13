@@ -13,26 +13,16 @@ const dataX = mock({
 
 export default [
   {
-    url: '/api/get',
-    method: 'get',
-    response: () => ({
-      code: 0,
-      data: dataX
-    })
-  },
-  {
-    url: '/api/post',
+    url: '/draft',
     method: 'post',
-    timeout: 2000,
+    timeout: 0,
     response: {
       code: 0,
-      data: {
-        name: 'vben'
-      }
-    }
+      data: "sdsds",
+    },
   },
   {
-    url: '/api/text',
+    url: '/xxx',
     method: 'post',
     rawResponse: async (req, res) => {
       let reqbody = ''
@@ -45,7 +35,7 @@ export default [
       })
       res.setHeader('Content-Type', 'text/plain')
       res.statusCode = 200
-      res.end(`hello, ${reqbody}`)
+      res.end(` ${reqbody}`)
     }
   }
 ] as MockMethod[]

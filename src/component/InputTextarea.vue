@@ -4,9 +4,10 @@ import { storeToRefs } from 'pinia';
 import { useCreateArticle } from '@/store/createArticle';
 
 const store = useCreateArticle();
+// 组件创建时从本地获取上一次的文章数据
+store.getArticle();
 const { initArticle } = storeToRefs(store);
 const content = ref<string>(initArticle.value);
-
 // 获取输入框滚动条高度
 const scrollArticle = (e: Event) => {
   const el = e.target as HTMLElement;
@@ -19,6 +20,7 @@ const writeContent = () => {
   store.$patch((store) => {
     store.initArticle = content.value;
   });
+  store.saveLocal();
 };
 </script>
 
@@ -37,7 +39,7 @@ const writeContent = () => {
 <style scoped lang="scss">
 @import '../style/golbalScroll';
 $articleBackground: #f5f5f5;
-$articleInnnerPadding: (20px 10px 40px 10px);
+$articleInnnerPadding: (20px 10px 250px 10px);
 .write-article-wrap {
   height: 100%;
   display: flex;
