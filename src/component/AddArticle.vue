@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
+import { useRouter } from 'vue-router';
 import InputTextarea from '@/component/InputTextarea.vue';
 import OutputTextarea from '@/component/OutputTextarea.vue';
 import ArticleAction from '@/component/ArticleAction.vue';
 import { useCreateArticle } from '@/store/createArticle';
 
 const store = useCreateArticle();
+const router = useRouter();
 const { initTitle } = storeToRefs(store);
 const title = ref<string>(initTitle.value);
 onMounted(() => {
@@ -21,7 +23,14 @@ const changeTitle = () => {
 };
 // 保存为草稿
 const saveDraft = () => {
-  store.saveDraft();
+  store.saveDraft().then(
+    () => {
+      router.push('/success');
+    },
+    () => {
+      console.log('err');
+    }
+  );
 };
 // 正式发布为文章
 const publish = () => {

@@ -45,6 +45,16 @@ const routes: Array<RouteRecordRaw> = [
         path: '/info',
         name: 'Info',
         component: () => import('@/component/ShowInfo.vue')
+      },
+      {
+        path: '/success',
+        name: 'SuccessPublish',
+        component: () => import('@/component/SuccessPublish.vue')
+      },
+      {
+        path: '/fail',
+        name: 'FailPublish',
+        component: () => import('@/component/FailPublish.vue')
       }
     ]
   },

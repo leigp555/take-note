@@ -6,7 +6,8 @@ export const useCreateArticle = defineStore('createArticle', {
     return {
       initTitle: '' as string,
       initArticle: '' as string,
-      initScroll: 0 as number
+      initScroll: 0 as number,
+      isLoading: false as boolean
     };
   },
   actions: {
@@ -31,13 +32,22 @@ export const useCreateArticle = defineStore('createArticle', {
     },
     saveDraft() {
       // 将本地编辑的内容保存为草稿并删除本地的未编辑完的内容
-      httpRequest('/draft', 'POST', {
-        title: this.initTitle,
-        content: this.initArticle
-      }).then(() => {
-        window.localStorage.setItem(
-          'temp_save',
-          JSON.stringify({ initTitle: '', initArticle: '' })
+      return new Promise((resolve, reject) => {
+        httpRequest('/draft', 'POST', {
+          title: this.initTitle,
+          content: this.initArticle
+        }).then(
+          () => {
+            window.localStorage.setItem(
+              'temp_save',
+              JSON.stringify({ initTitle: '', initArticle: '' })
+            );
+            this.getArticle();
+            resolve(true);
+          },
+          () => {
+            reject(false);
+          }
         );
       });
     },

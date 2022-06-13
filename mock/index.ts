@@ -15,7 +15,7 @@ export default [
   {
     url: '/draft',
     method: 'post',
-    timeout: 0,
+    timeout: 2000,
     response: {
       code: 0,
       data: "sdsds",
