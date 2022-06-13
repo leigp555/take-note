@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import httpRequest from '@/utils/axios';
+import { useGlobalStore } from '@/store/global';
 
 export const useCreateArticle = defineStore('createArticle', {
   state: () => {
@@ -31,13 +32,16 @@ export const useCreateArticle = defineStore('createArticle', {
       window.localStorage.setItem('temp_save', newArticle);
     },
     saveDraft() {
+      const globalStore = useGlobalStore();
       // 将本地编辑的内容保存为草稿并删除本地的未编辑完的内容
       return new Promise((resolve, reject) => {
+        globalStore.isLoading = true;
         httpRequest('/draft', 'POST', {
           title: this.initTitle,
           content: this.initArticle
         }).then(
           () => {
+            globalStore.isLoading = false;
             window.localStorage.setItem(
               'temp_save',
               JSON.stringify({ initTitle: '', initArticle: '' })
@@ -46,6 +50,7 @@ export const useCreateArticle = defineStore('createArticle', {
             resolve(true);
           },
           () => {
+            globalStore.isLoading = false;
             reject(false);
           }
         );
