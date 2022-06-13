@@ -1,15 +1,23 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useCreateArticle } from '@/store/createArticle';
 
-const emits = defineEmits(['update:scrollPosition', 'update:inputContent']);
+const store = useCreateArticle();
 const content = ref<string>('');
+
+// 获取输入框滚动条高度
 const scrollArticle = (e: Event) => {
   const el = e.target as HTMLElement;
-  emits('update:scrollPosition', el!.scrollTop);
+  store.$patch((store) => {
+    store.scrollPosition = el!.scrollTop;
+  });
 };
+// 获取输入框的内容
 const writeContent = (e: InputEvent) => {
   const el = e.target as HTMLElement;
-  emits('update:inputContent', content.value);
+  store.$patch((store) => {
+    store.newArticle = content.value;
+  });
   el!.scrollTop = 9999;
 };
 </script>
