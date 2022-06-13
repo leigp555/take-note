@@ -1,22 +1,20 @@
 <script lang="ts" setup>
-import { computed, ref, toRefs, watchEffect } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import * as marked from 'marked';
+import { storeToRefs } from 'pinia';
+import { useCreateArticle } from '@/store/createArticle';
 
-interface Position {
-  scrollPosition: number;
-  inputContent: string;
-}
-const props = defineProps<Position>();
-const { scrollPosition, inputContent } = toRefs(props);
+const store = useCreateArticle();
+const { initArticle, initScroll } = storeToRefs(store);
 
 const outputContent = computed(() => {
   // @ts-ignore
-  return marked.parse(inputContent.value);
+  return marked.parse(initArticle.value);
 });
 const outputArticle = ref<HTMLInputElement>();
 watchEffect(() => {
   if (outputArticle.value) {
-    outputArticle.value.scrollTop = scrollPosition.value;
+    outputArticle.value.scrollTop = initScroll.value;
   }
 });
 </script>

@@ -1,22 +1,24 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useCreateArticle } from '@/store/createArticle';
 
 const store = useCreateArticle();
-const content = ref<string>('');
+const { initArticle } = storeToRefs(store);
+const content = ref<string>(initArticle.value);
 
 // 获取输入框滚动条高度
 const scrollArticle = (e: Event) => {
   const el = e.target as HTMLElement;
   store.$patch((store) => {
-    store.scrollPosition = el!.scrollTop;
+    store.initScroll = el!.scrollTop;
   });
 };
 // 获取输入框的内容
 const writeContent = (e: InputEvent) => {
   const el = e.target as HTMLElement;
   store.$patch((store) => {
-    store.newArticle = content.value;
+    store.initArticle = content.value;
   });
   el!.scrollTop = 9999;
 };
