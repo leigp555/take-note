@@ -85,13 +85,13 @@ const onFinish = () => {
       securityCode: formState.securityCode
     })
     .then(() => {
-      Tip('success', '注册成功,2秒后跳转至登录页', 1500);
+      Tip('success', '注册成功!2秒后跳转至登录页', 2000);
       setTimeout(() => {
         router.push('/login');
       }, 2000);
     })
     .catch(() => {
-      Tip('error', '验证码错误', 1500);
+      Tip('error', '验证码错误', 2000);
     });
 };
 </script>

@@ -9,6 +9,17 @@
   box-sizing: border-box;
 }
 
+//提示
+#tips {
+  position: absolute;
+  z-index: 10;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  flex-direction: column;
+}
+
 //table美化
 table {
   max-width: 400px;
@@ -43,4 +54,3 @@ table tr:nth-child(odd) {
 table tr:nth-child(even) {
   background-color: #f8f8f8;
 }
-

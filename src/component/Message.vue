@@ -16,11 +16,7 @@ const { msg, type } = toRefs(props);
 
 <style lang="scss" scoped>
 .wrap {
-  position: absolute;
-  z-index: 10;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   .message {
     display: inline-block;
   }

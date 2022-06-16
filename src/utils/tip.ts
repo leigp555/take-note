@@ -6,8 +6,16 @@ export const Tip = (
   msg: string,
   interval = 2000
 ) => {
+  let wrap: HTMLElement;
+  if (!document.getElementById('tips')) {
+    wrap = document.createElement('div');
+    wrap.setAttribute('id', 'tips');
+  } else {
+    wrap = document.getElementById('tips')!;
+  }
+  document.body.appendChild(wrap);
   const demo = document.createElement('div');
-  document.body.appendChild(demo);
+  wrap.appendChild(demo);
   const app = createApp(h(Message, { msg, type }));
   app.mount(demo);
   const id = setTimeout(() => {
