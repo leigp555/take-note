@@ -10,6 +10,9 @@ export const Tip = (
   if (!document.getElementById('tips')) {
     wrap = document.createElement('div');
     wrap.setAttribute('id', 'tips');
+    setTimeout(() => {
+      wrap.remove();
+    }, 6000);
   } else {
     wrap = document.getElementById('tips')!;
   }
