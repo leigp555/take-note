@@ -58,11 +58,28 @@ export const useCreateArticle = defineStore('createArticle', {
     },
     publish() {
       // 将文章发布
-      httpRequest('/publish', 'POST', {
-        title: this.initTitle,
-        content: this.initArticle
-      }).then((res) => {
-        console.log(res);
+      const globalStore = useGlobalStore();
+      // 将本地编辑的内容保存为草稿并删除本地的未编辑完的内容
+      return new Promise((resolve, reject) => {
+        globalStore.isLoading = true;
+        httpRequest('/publish', 'POST', {
+          title: this.initTitle,
+          content: this.initArticle
+        }).then(
+          () => {
+            globalStore.isLoading = false;
+            window.localStorage.setItem(
+              'temp_save',
+              JSON.stringify({ initTitle: '', initArticle: '' })
+            );
+            this.getArticle();
+            resolve(true);
+          },
+          () => {
+            globalStore.isLoading = false;
+            reject(false);
+          }
+        );
       });
     }
   }

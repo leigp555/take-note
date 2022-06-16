@@ -1,3 +1,47 @@
+<script lang="ts" setup>
+import { reactive } from 'vue';
+import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
+import { useRouter } from 'vue-router';
+import { Loginer } from '@/common/type.d.ts';
+import { useUserStore } from '@/store/userInfo';
+
+const router = useRouter();
+const userStore = useUserStore();
+const formState = reactive<Loginer>({
+  username: 'lgp',
+  password: '123456abc'
+});
+
+// 表单验证
+const verifyUserName = [
+  { required: true, message: '请填写用户名' },
+  {
+    pattern: /^[0-9A-Za-z_]{3,20}$/,
+    message: '请输入3-20位(数字,字母或下划线)',
+    trigger: 'blur'
+  }
+];
+const verifyPassWord = [
+  { required: true, message: '请填写密码' },
+  {
+    pattern: /^[a-zA-Z0-9_-]{6,16}$/,
+    message: '请输入6到16位(字母，数字，下划线，减号)',
+    trigger: 'blur'
+  }
+];
+
+// 验证成功后发送http请求
+const onFinish = (values: Loginer) => {
+  userStore.$patch((state) => {
+    state.username = values.username;
+    state.password = values.password;
+  });
+  userStore.login().then(() => {
+    router.push('/');
+  });
+};
+</script>
+
 <template>
   <div class="login-section-wrap">
     <section class="section-avatar">
@@ -9,29 +53,24 @@
         name="normal_login"
         class="login-form"
         @finish="onFinish"
-        @finishFailed="onFinishFailed"
       >
-        <a-form-item
-          name="username"
-          :rules="[{ required: true, message: 'Please input your username!' }]"
-        >
+        <!--验证用户名 -->
+        <a-form-item name="username" :rules="verifyUserName">
           <a-input v-model:value="formState.username">
             <template #prefix>
               <UserOutlined class="site-form-item-icon" />
             </template>
           </a-input>
         </a-form-item>
-
-        <a-form-item
-          name="password"
-          :rules="[{ required: true, message: 'Please input your password!' }]"
-        >
+        <!--验证密码 -->
+        <a-form-item name="password" :rules="verifyPassWord">
           <a-input-password v-model:value="formState.password">
             <template #prefix>
               <LockOutlined class="site-form-item-icon" />
             </template>
           </a-input-password>
         </a-form-item>
+        <!--发请求 -->
         <a-form-item>
           <a-button type="primary" html-type="submit" class="login-form-button">
             Log in
@@ -49,45 +88,7 @@
     </section>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, reactive, computed } from 'vue';
-import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 
-interface FormState {
-  username: string;
-  password: string;
-  remember: boolean;
-}
-export default defineComponent({
-  components: {
-    UserOutlined,
-    LockOutlined
-  },
-  setup() {
-    const formState = reactive<FormState>({
-      username: '',
-      password: '',
-      remember: true
-    });
-    const onFinish = (values: any) => {
-      console.log('Success:', values);
-    };
-
-    const onFinishFailed = (errorInfo: any) => {
-      console.log('Failed:', errorInfo);
-    };
-    const disabled = computed(() => {
-      return !(formState.username && formState.password);
-    });
-    return {
-      formState,
-      onFinish,
-      onFinishFailed,
-      disabled
-    };
-  }
-});
-</script>
 <style lang="scss" scoped>
 $avatar_bottom: 40px;
 $from_background: #fdf8fb;

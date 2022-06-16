@@ -17,21 +17,22 @@ function insertAtCursor(
   const startPos = contentEl.selectionStart;
   const endPos = contentEl.selectionEnd;
   if (contentEl.selectionStart) {
-    contentEl.value = `${
+    const text = `${
       initArticle.value.substring(0, startPos) +
       leftValue +
       initArticle.value.substring(startPos, endPos)
     }${rightValue}${initArticle.value.substring(endPos, initArticle.value.length)}`;
+    contentEl.value = text;
     store.$patch((state) => {
-      state.initArticle = `${
-        initArticle.value.substring(0, startPos) +
-        leftValue +
-        initArticle.value.substring(startPos, endPos)
-      }${rightValue}${initArticle.value.substring(endPos, initArticle.value.length)}`;
+      state.initArticle = text;
     });
     store.saveLocal();
   } else {
-    contentEl.value = leftValue + rightValue;
+    const text = leftValue + contentEl.value + rightValue;
+    contentEl.value = text;
+    store.$patch((state) => {
+      state.initArticle = text;
+    });
     store.saveLocal();
   }
 }

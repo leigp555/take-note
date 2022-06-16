@@ -28,13 +28,20 @@ const saveDraft = () => {
       router.push('/success');
     },
     () => {
-      console.log('err');
+      router.push('/fail');
     }
   );
 };
 // 正式发布为文章
 const publish = () => {
-  store.publish();
+  store.publish().then(
+    () => {
+      router.push('/success');
+    },
+    () => {
+      router.push('/fail');
+    }
+  );
 };
 </script>
 

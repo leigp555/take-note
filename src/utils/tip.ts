@@ -1,14 +1,11 @@
 import { createApp, h } from 'vue';
 import Message from '@/component/Message.vue';
 
-type Option = {
-  msg: string;
-  type: 'success' | 'info' | 'warning' | 'error';
-  interval: number;
-};
-
-export const Tip = (options: Option) => {
-  const { msg, type, interval } = options;
+export const Tip = (
+  type: 'success' | 'info' | 'warning' | 'error',
+  msg: string,
+  interval = 2000
+) => {
   const demo = document.createElement('div');
   document.body.appendChild(demo);
   const app = createApp(h(Message, { msg, type }));
@@ -17,5 +14,5 @@ export const Tip = (options: Option) => {
     app.unmount();
     demo.remove();
     window.clearTimeout(id);
-  }, interval || 2000);
+  }, interval);
 };
