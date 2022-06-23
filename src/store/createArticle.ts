@@ -14,14 +14,14 @@ export const useCreateArticle = defineStore('createArticle', {
   actions: {
     getArticle() {
       // 获取上一次为编辑完的内容
-      let article: { initTitle: string; initArticle: string };
+      let article = { initTitle: '', initArticle: '' };
       try {
         article = JSON.parse(<string>window.localStorage.getItem('temp_save'));
+        this.initTitle = article.initTitle;
+        this.initArticle = article.initArticle;
       } catch (err) {
         article = { initTitle: '', initArticle: '' };
       }
-      this.initTitle = article.initTitle;
-      this.initArticle = article.initArticle;
     },
     saveLocal() {
       // 将为编辑完的内容保存到本地

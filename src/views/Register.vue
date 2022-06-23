@@ -1,21 +1,15 @@
 <script lang="ts" setup>
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@/store/userInfo';
+import { useEnterStore } from '@/store/enter.ts';
 import { Tip } from '@/utils/tip';
+import { RegisterForm } from '@/common/type.ts';
 
-interface FormState {
-  username: string;
-  email: string;
-  securityCode: string;
-  password: string;
-  checkPass: string;
-}
 const router = useRouter();
-const store = useUserStore();
-const formState = reactive<FormState>({
+const store = useEnterStore();
+const formState = reactive<RegisterForm>({
   username: 'lgp',
-  email: '907090585@qq.com',
+  email: '122974945@qq.com',
   securityCode: '1234',
   password: '123456abc',
   checkPass: '123456abc'
@@ -28,8 +22,8 @@ const timer = reactive({
 const verifyUserName = [
   { required: true, message: '请填写用户名' },
   {
-    pattern: /^[0-9A-Za-z_]{3,20}$/,
-    message: '请输入3-20位(数字,字母或下划线)',
+    pattern: /^[0-9A-Za-z_@/.]{3,20}$/,
+    message: '请输入3-20位(数字,字母或下划线@.)',
     trigger: 'blur'
   }
 ];
@@ -60,20 +54,28 @@ const verifyCheckPass = [
 
 // 获取验证码
 const getSecurityCode = () => {
-  Tip('success', '验证码已发送', 1500);
-  timer.timing = true;
-  const timeId = setInterval(() => {
-    if (timer.time > 0) {
-      timer.time -= 1;
-    } else {
-      timer.timing = false;
-      timer.time = 60;
-      window.clearInterval(timeId);
-    }
-  }, 1000);
-  store.getSecurityCode().catch(() => {
-    Tip('error', '发送失败请重试', 1500);
-  });
+  const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+  // 如果邮箱填写并且格式正确就发送验证码
+  if (formState.email && reg.test(formState.email)) {
+    Tip('success', '验证码已发送', 1500);
+    timer.timing = true;
+    const timeId = setInterval(() => {
+      if (timer.time > 0) {
+        timer.time -= 1;
+      } else {
+        timer.timing = false;
+        timer.time = 60;
+        window.clearInterval(timeId);
+      }
+    }, 1000);
+    store.getSecurityCode(formState.email).catch(() => {
+      Tip('error', '发送失败请重试');
+    });
+  } else if (formState.email && !reg.test(formState.email)) {
+    Tip('error', '邮箱格式有误');
+  } else {
+    Tip('error', '请先填写邮箱');
+  }
 };
 
 const onFinish = () => {
@@ -90,8 +92,8 @@ const onFinish = () => {
         router.push('/login');
       }, 2000);
     })
-    .catch(() => {
-      Tip('error', '验证码错误', 2000);
+    .catch((err) => {
+      Tip('error', err.errors.errMsg, 2000);
     });
 };
 </script>

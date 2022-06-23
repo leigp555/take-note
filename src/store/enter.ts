@@ -13,7 +13,7 @@ type Register = {
   securityCode: string;
 };
 // 处理用户信息的store
-export const useUserStore = defineStore('userInfo', {
+export const useEnterStore = defineStore('userInfo', {
   state: (): User => {
     return {
       username: '',
@@ -39,9 +39,13 @@ export const useUserStore = defineStore('userInfo', {
           });
       });
     },
-    getSecurityCode() {
+    getSecurityCode(payload: string) {
       return new Promise((resolve, reject) => {
-        (httpRequest('/securityCode', 'get') as Promise<{ msg: string }>)
+        (
+          httpRequest('/securityCode', 'post', { email: payload }) as Promise<{
+            msg: string;
+          }>
+        )
           .then((res) => {
             resolve(res);
           })
@@ -50,6 +54,7 @@ export const useUserStore = defineStore('userInfo', {
           });
       });
     },
+    // 注册相关的http请求
     register(payload: Register) {
       return new Promise((resolve, reject) => {
         (

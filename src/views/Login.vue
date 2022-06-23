@@ -2,11 +2,11 @@
 import { reactive } from 'vue';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 import { useRouter } from 'vue-router';
-import { Loginer } from '@/common/type.d.ts';
-import { useUserStore } from '@/store/userInfo';
+import { Loginer } from '@/common/type.ts';
+import { useEnterStore } from '@/store/enter.ts';
 
 const router = useRouter();
-const userStore = useUserStore();
+const userStore = useEnterStore();
 const formState = reactive<Loginer>({
   username: 'lgp',
   password: '123456abc'
@@ -16,8 +16,8 @@ const formState = reactive<Loginer>({
 const verifyUserName = [
   { required: true, message: '请填写用户名' },
   {
-    pattern: /^[0-9A-Za-z_]{3,20}$/,
-    message: '请输入3-20位(数字,字母或下划线)',
+    pattern: /^[0-9A-Za-z_@/.]{3,20}$/,
+    message: '请输入3-20位(数字,字母或下划线@.)',
     trigger: 'blur'
   }
 ];
