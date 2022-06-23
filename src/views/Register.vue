@@ -96,6 +96,9 @@ const onFinish = () => {
       Tip('error', err.errors.errMsg, 2000);
     });
 };
+const toLogin = () => {
+  router.push('/login');
+};
 </script>
 
 <template>
@@ -155,9 +158,9 @@ const onFinish = () => {
             </a-button>
             <a-button
               type="primary"
-              html-type="submit"
               class="register-form-button"
               style="background-color: white"
+              @click="toLogin"
             >
               返回登录
             </a-button>
