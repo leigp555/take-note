@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import httpRequest from '@/utils/axios';
-import { useGlobalStore } from '@/store/global';
 
 export const useCreateArticle = defineStore('createArticle', {
   state: () => {
@@ -12,8 +11,15 @@ export const useCreateArticle = defineStore('createArticle', {
     };
   },
   actions: {
+    // 初始化store
+    initStore() {
+      this.initTitle = '';
+      this.initArticle = '';
+      this.initScroll = 0;
+      this.isLoading = false;
+    },
+    // 获取上一次为编辑完的内容
     getArticle() {
-      // 获取上一次为编辑完的内容
       let article = { initTitle: '', initArticle: '' };
       try {
         article = JSON.parse(<string>window.localStorage.getItem('temp_save'));
@@ -23,6 +29,7 @@ export const useCreateArticle = defineStore('createArticle', {
         article = { initTitle: '', initArticle: '' };
       }
     },
+    // 将内容保存到本地
     saveLocal() {
       // 将为编辑完的内容保存到本地
       const newArticle = JSON.stringify({
@@ -31,52 +38,42 @@ export const useCreateArticle = defineStore('createArticle', {
       });
       window.localStorage.setItem('temp_save', newArticle);
     },
+    // 将内容保存为草稿
     saveDraft() {
-      const globalStore = useGlobalStore();
-      // 将本地编辑的内容保存为草稿并删除本地的未编辑完的内容
       return new Promise((resolve, reject) => {
-        globalStore.isLoading = true;
-        httpRequest('/draft', 'POST', {
+        httpRequest('/article', 'POST', {
           title: this.initTitle,
-          content: this.initArticle
+          body: this.initArticle,
+          isPublic: false,
+          state: 'draft'
         }).then(
           () => {
-            globalStore.isLoading = false;
-            window.localStorage.setItem(
-              'temp_save',
-              JSON.stringify({ initTitle: '', initArticle: '' })
-            );
-            this.getArticle();
             resolve(true);
           },
           () => {
-            globalStore.isLoading = false;
             reject(false);
           }
         );
       });
     },
+    // 发布文章
     publish() {
-      // 将文章发布
-      const globalStore = useGlobalStore();
-      // 将本地编辑的内容保存为草稿并删除本地的未编辑完的内容
       return new Promise((resolve, reject) => {
-        globalStore.isLoading = true;
-        httpRequest('/publish', 'POST', {
+        httpRequest('/article', 'POST', {
           title: this.initTitle,
-          content: this.initArticle
+          body: this.initArticle,
+          isPublic: false,
+          state: 'normal'
         }).then(
           () => {
-            globalStore.isLoading = false;
             window.localStorage.setItem(
               'temp_save',
               JSON.stringify({ initTitle: '', initArticle: '' })
             );
-            this.getArticle();
+            this.initStore();
             resolve(true);
           },
           () => {
-            globalStore.isLoading = false;
             reject(false);
           }
         );

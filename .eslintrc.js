@@ -37,6 +37,7 @@ module.exports = {
     'prefer-regex-literals':'off',
     'prefer-promise-reject-errors':'off',
     'func-names':'off',
+    'camelcase':'off',
     'no-param-reassign': [
       'off',
       {

@@ -1,3 +1,44 @@
+<script lang="ts" setup>
+import { ref, createVNode, computed } from 'vue';
+import {
+  DeleteOutlined,
+  PlusCircleOutlined,
+  SearchOutlined,
+  LoginOutlined,
+  HeartOutlined,
+  ToolOutlined,
+  FileTextOutlined,
+  FolderOpenOutlined,
+  ExclamationCircleOutlined
+} from '@ant-design/icons-vue';
+import { useRouter } from 'vue-router';
+import { Modal } from 'ant-design-vue';
+import Icon from '@/component/Icon.vue';
+import { useGlobalStore } from '@/store/global';
+
+const router = useRouter();
+const globalStore = useGlobalStore();
+
+const selectedKeys = ref<string[]>(['1']);
+const avatar_url = computed(() => {
+  return globalStore.avatar_url;
+});
+
+const ok = () => {
+  router.push('/login');
+};
+const confirm = () => {
+  Modal.confirm({
+    title: '退出',
+    icon: createVNode(ExclamationCircleOutlined),
+    content: '确认退出？',
+    okText: '确认',
+    cancelText: '取消',
+    onOk: ok
+  });
+};
+</script>
+
 <template>
   <div>
     <a-menu
@@ -13,9 +54,7 @@
             <span>个人信息</span>
           </template>
           <div style="width: 100%; display: flex; justify-content: center">
-            <router-link to="/info"
-              ><a-avatar src="https://joeschmoe.io/api/v1/random"
-            /></router-link>
+            <router-link to="/info"><a-avatar :src="avatar_url" /></router-link>
           </div>
         </a-tooltip>
       </section>
@@ -97,40 +136,7 @@
     <a-modal> </a-modal>
   </div>
 </template>
-<script lang="ts" setup>
-import { ref, createVNode } from 'vue';
-import {
-  DeleteOutlined,
-  PlusCircleOutlined,
-  SearchOutlined,
-  LoginOutlined,
-  HeartOutlined,
-  ToolOutlined,
-  FileTextOutlined,
-  FolderOpenOutlined,
-  ExclamationCircleOutlined
-} from '@ant-design/icons-vue';
-import { useRouter } from 'vue-router';
-import { Modal } from 'ant-design-vue';
-import Icon from '@/component/Icon.vue';
 
-const router = useRouter();
-const selectedKeys = ref<string[]>(['1']);
-
-const ok = () => {
-  router.push('/login');
-};
-const confirm = () => {
-  Modal.confirm({
-    title: '退出',
-    icon: createVNode(ExclamationCircleOutlined),
-    content: '确认退出？',
-    okText: '确认',
-    cancelText: '取消',
-    onOk: ok
-  });
-};
-</script>
 <style lang="scss" scoped>
 .menu-wrap {
   height: 100vh;

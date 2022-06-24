@@ -12,7 +12,7 @@ type Register = {
   password: string;
   securityCode: string;
 };
-// 处理用户信息的store
+// 处理注册和登录的store
 export const useEnterStore = defineStore('userInfo', {
   state: (): User => {
     return {

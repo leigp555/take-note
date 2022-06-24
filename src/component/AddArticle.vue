@@ -6,13 +6,18 @@ import InputTextarea from '@/component/InputTextarea.vue';
 import OutputTextarea from '@/component/OutputTextarea.vue';
 import ArticleAction from '@/component/ArticleAction.vue';
 import { useCreateArticle } from '@/store/createArticle';
+import { useGlobalStore } from '@/store/global';
 
 const store = useCreateArticle();
+const globalStore = useGlobalStore();
 const router = useRouter();
 const { initTitle } = storeToRefs(store);
 const title = ref<string>(initTitle.value);
+// 初始化时获取初始的标题,以及更新用户的邮箱和用户名
 onMounted(() => {
   title.value = initTitle.value;
+  globalStore.getUserInfo().then();
+  globalStore.getUserAvatar().then();
 });
 // 保存标题
 const changeTitle = () => {
