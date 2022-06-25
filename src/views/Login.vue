@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { reactive, onMounted } from 'vue';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
 import { Loginer } from '@/common/type';
 import { userStore } from '@/store/user';
 import { Tip } from '@/utils/tip';
@@ -10,7 +11,14 @@ const router = useRouter();
 const store_user = userStore();
 const formState = reactive<Loginer>({
   username: 'lgp',
-  password: '123456abc'
+  password: '123456abc',
+  avatar_url: ''
+});
+// 从本地获取头像外链
+store_user.getLastAvatar();
+const { avatar_url } = storeToRefs(store_user);
+onMounted(() => {
+  formState.avatar_url = avatar_url.value;
 });
 
 // 表单验证
@@ -47,7 +55,10 @@ const onFinish = (values: Loginer) => {
 <template>
   <div class="login-section-wrap">
     <section class="section-avatar">
-      <a-avatar :size="60" src="https://joeschmoe.io/api/v1/random" />
+      <a-avatar v-if="formState.avatar_url" :size="60" :src="formState.avatar_url" />
+      <a-avatar v-else :size="60">
+        <template #icon><UserOutlined /></template>
+      </a-avatar>
     </section>
     <section class="section-from">
       <a-form

@@ -5,7 +5,6 @@ interface UserStore {
   username: string;
   email: string;
   avatar_url: string;
-  avatar_file: string;
 }
 
 export const userStore = defineStore('userInfo', {
@@ -13,8 +12,7 @@ export const userStore = defineStore('userInfo', {
     return {
       username: '',
       email: '',
-      avatar_url: '',
-      avatar_file: ''
+      avatar_url: ''
     } as UserStore;
   },
   getters: {},
@@ -65,6 +63,7 @@ export const userStore = defineStore('userInfo', {
       }
     },
     async getUserInfo() {
+      // 获取邮箱和用户名
       try {
         const { username, email } = (await httpRequest('/user/info', 'GET')) as {
           username: string;
@@ -77,15 +76,18 @@ export const userStore = defineStore('userInfo', {
         return Promise.reject(err);
       }
     },
+    getLastAvatar() {
+      // 获取本地的头像外链
+      this.avatar_url = window.localStorage.getItem('avatar') || '';
+    },
     async getUserAvatar() {
       // 获取用户头像并保存在本地
       try {
-        const { avatar_url, avatar_base64 } = (await httpRequest('/avatar', 'GET')) as {
+        const { avatar_url } = (await httpRequest('/avatar', 'GET')) as {
           avatar_url: string;
-          avatar_base64: string;
         };
         this.avatar_url = avatar_url;
-        window.localStorage.setItem('avatar', avatar_base64);
+        window.localStorage.setItem('avatar', avatar_url);
         return Promise.resolve({ avatar_url });
       } catch (err) {
         return Promise.reject(err);
@@ -100,7 +102,7 @@ export const userStore = defineStore('userInfo', {
           avatar_url: string;
         };
         this.avatar_url = avatar_url;
-        window.localStorage.setItem('avatar', payload.avatar_file);
+        window.localStorage.setItem('avatar', avatar_url);
         return Promise.resolve({ avatar_url });
       } catch (err) {
         return Promise.reject(err);

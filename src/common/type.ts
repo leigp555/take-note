@@ -1,6 +1,7 @@
 export interface Loginer {
   username: string;
   password: string;
+  avatar_url: string;
 }
 
 export interface RegisterForm {
