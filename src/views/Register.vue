@@ -1,16 +1,17 @@
 <script lang="ts" setup>
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
-import { useEnterStore } from '@/store/enter.ts';
+
 import { Tip } from '@/utils/tip';
-import { RegisterForm } from '@/common/type.ts';
+import { RegisterForm } from '@/common/type';
+import { userStore } from '@/store/user';
 
 const router = useRouter();
-const store = useEnterStore();
+const store_user = userStore();
 const formState = reactive<RegisterForm>({
   username: 'lgp',
   email: '122974945@qq.com',
-  securityCode: '1234',
+  securityCode: '123456',
   password: '123456abc',
   checkPass: '123456abc'
 });
@@ -68,7 +69,7 @@ const getSecurityCode = () => {
         window.clearInterval(timeId);
       }
     }, 1000);
-    store.getSecurityCode(formState.email).catch(() => {
+    store_user.getSecurityCode({ email: formState.email }).catch(() => {
       Tip('error', '发送失败请重试');
     });
   } else if (formState.email && !reg.test(formState.email)) {
@@ -79,7 +80,7 @@ const getSecurityCode = () => {
 };
 
 const onFinish = () => {
-  store
+  store_user
     .register({
       username: formState.username,
       email: formState.email,

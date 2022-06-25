@@ -2,19 +2,19 @@
 import { computed, ref, watchEffect } from 'vue';
 import * as marked from 'marked';
 import { storeToRefs } from 'pinia';
-import { useCreateArticle } from '@/store/createArticle';
+import { articleStore } from '@/store/article';
 
-const store = useCreateArticle();
-const { initArticle, initScroll } = storeToRefs(store);
+const store_article = articleStore();
+const { body, scrollHeight } = storeToRefs(store_article);
 
 const outputContent = computed(() => {
   // @ts-ignore
-  return marked.parse(initArticle.value);
+  return marked.parse(body.value || '');
 });
 const outputArticle = ref<HTMLInputElement>();
 watchEffect(() => {
   if (outputArticle.value) {
-    outputArticle.value.scrollTop = initScroll.value;
+    outputArticle.value.scrollTop = scrollHeight.value;
   }
 });
 </script>

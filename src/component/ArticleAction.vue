@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useCreateArticle } from '@/store/createArticle';
+import { articleStore } from '@/store/article';
 
 const text = ref<HTMLTextAreaElement>();
 onMounted(() => {
   text.value = document.getElementById('article-text') as HTMLTextAreaElement;
 });
-const store = useCreateArticle();
-const { initArticle } = storeToRefs(store);
+const store_article = articleStore();
+const { body } = storeToRefs(store_article);
 function insertAtCursor(
   contentEl: HTMLTextAreaElement,
   leftValue: string,
@@ -18,22 +18,22 @@ function insertAtCursor(
   const endPos = contentEl.selectionEnd;
   if (contentEl.selectionStart) {
     const text = `${
-      initArticle.value.substring(0, startPos) +
+      body.value.substring(0, startPos) +
       leftValue +
-      initArticle.value.substring(startPos, endPos)
-    }${rightValue}${initArticle.value.substring(endPos, initArticle.value.length)}`;
+      body.value.substring(startPos, endPos)
+    }${rightValue}${body.value.substring(endPos, body.value.length)}`;
     contentEl.value = text;
-    store.$patch((state) => {
-      state.initArticle = text;
+    store_article.$patch((state) => {
+      state.body = text;
     });
-    store.saveLocal();
+    store_article.saveLocal();
   } else {
     const text = leftValue + contentEl.value + rightValue;
     contentEl.value = text;
-    store.$patch((state) => {
-      state.initArticle = text;
+    store_article.$patch((state) => {
+      state.body = text;
     });
-    store.saveLocal();
+    store_article.saveLocal();
   }
 }
 const insert = (type: string) => {

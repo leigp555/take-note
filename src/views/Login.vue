@@ -2,11 +2,12 @@
 import { reactive } from 'vue';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 import { useRouter } from 'vue-router';
-import { Loginer } from '@/common/type.ts';
-import { useEnterStore } from '@/store/enter.ts';
+import { Loginer } from '@/common/type';
+import { userStore } from '@/store/user';
+import { Tip } from '@/utils/tip';
 
 const router = useRouter();
-const userStore = useEnterStore();
+const store_user = userStore();
 const formState = reactive<Loginer>({
   username: 'lgp',
   password: '123456abc'
@@ -32,13 +33,14 @@ const verifyPassWord = [
 
 // 验证成功后发送http请求
 const onFinish = (values: Loginer) => {
-  userStore.$patch((state) => {
-    state.username = values.username;
-    state.password = values.password;
-  });
-  userStore.login().then(() => {
-    router.push('/');
-  });
+  store_user
+    .login({ user: values.username, password: values.password })
+    .then(() => {
+      router.push('/');
+    })
+    .catch((err) => {
+      Tip('error', err.errors.errMsg, 2000);
+    });
 };
 </script>
 

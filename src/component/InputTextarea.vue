@@ -1,26 +1,30 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useCreateArticle } from '@/store/createArticle';
+import { articleStore } from '@/store/article';
 
-const store = useCreateArticle();
-// 组件创建时从本地获取上一次的文章数据
-store.getArticle();
-const { initArticle } = storeToRefs(store);
-const content = ref<string>(initArticle.value);
+const store_article = articleStore();
+
+// 组件创建时从本地获取上一次的文章正文数据
+const { body } = storeToRefs(store_article);
+const content = ref<string>('');
+
+onMounted(() => {
+  content.value = body.value;
+});
 // 获取输入框滚动条高度
 const scrollArticle = (e: Event) => {
   const el = e.target as HTMLElement;
-  store.$patch((store) => {
-    store.initScroll = el!.scrollTop;
+  store_article.$patch((store) => {
+    store.scrollHeight = el!.scrollTop;
   });
 };
 // 获取输入框的内容
 const writeContent = () => {
-  store.$patch((store) => {
-    store.initArticle = content.value;
+  store_article.$patch((store) => {
+    store.body = content.value;
   });
-  store.saveLocal();
+  store_article.saveLocal();
 };
 </script>
 

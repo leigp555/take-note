@@ -5,30 +5,30 @@ import { useRouter } from 'vue-router';
 import InputTextarea from '@/component/InputTextarea.vue';
 import OutputTextarea from '@/component/OutputTextarea.vue';
 import ArticleAction from '@/component/ArticleAction.vue';
-import { useCreateArticle } from '@/store/createArticle';
-import { useGlobalStore } from '@/store/global';
 
-const store = useCreateArticle();
-const globalStore = useGlobalStore();
+import { articleStore } from '@/store/article';
+
+const store_article = articleStore();
 const router = useRouter();
-const { initTitle } = storeToRefs(store);
-const title = ref<string>(initTitle.value);
-// 初始化时获取初始的标题,以及更新用户的邮箱和用户名
+
+store_article.getLastArticle();
+const { title } = storeToRefs(store_article);
+
+const articleTitle = ref<string>('');
+// 初始化时获取初始的标题
 onMounted(() => {
-  title.value = initTitle.value;
-  globalStore.getUserInfo().then();
-  globalStore.getUserAvatar().then();
+  articleTitle.value = title.value;
 });
 // 保存标题
 const changeTitle = () => {
-  store.$patch((state) => {
-    state.initTitle = title.value;
+  store_article.$patch((state) => {
+    state.title = articleTitle.value;
   });
-  store.saveLocal();
+  store_article.saveLocal();
 };
 // 保存为草稿
 const saveDraft = () => {
-  store.saveDraft().then(
+  store_article.createArticle({ isPublic: false, state: 'draft' }).then(
     () => {
       router.push('/success');
     },
@@ -39,7 +39,7 @@ const saveDraft = () => {
 };
 // 正式发布为文章
 const publish = () => {
-  store.publish().then(
+  store_article.createArticle({ isPublic: false, state: 'normal' }).then(
     () => {
       router.push('/success');
     },
@@ -56,7 +56,7 @@ const publish = () => {
       文章标题
       <a-input
         class="title"
-        v-model:value="title"
+        v-model:value="articleTitle"
         show-count
         :maxlength="100"
         @change="changeTitle"

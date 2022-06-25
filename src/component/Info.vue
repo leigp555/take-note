@@ -1,15 +1,16 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
 import InfoDetail from '@/component/InfoDetail.vue';
-import { useGlobalStore } from '@/store/global';
 import transImg from '@/utils/transApi';
+import { userStore } from '@/store/user';
 
-const globalStore = useGlobalStore();
-const { username, email } = storeToRefs(globalStore);
+const store_user = userStore();
+const { username, email, avatar_url } = storeToRefs(store_user);
 
 const changeAvatar = (e: Event) => {
-  transImg.fileToUrl(e.target.files[0]).then((res) => {
-    console.log(res);
+  const el = e.target as HTMLInputElement;
+  (transImg.fileToUrl(el!.files![0]) as Promise<string>).then((res) => {
+    store_user.updateUserAvatar({ avatar_file: res });
   });
 };
 </script>
@@ -17,7 +18,7 @@ const changeAvatar = (e: Event) => {
 <template>
   <div class="info-wrap">
     <section style="margin-bottom: 20px; position: relative" class="section-avatar">
-      <a-avatar src="https://joeschmoe.io/api/v1/random" :size="70" />
+      <a-avatar :src="avatar_url" :size="70" />
       <form style="position: absolute">
         <input
           type="file"

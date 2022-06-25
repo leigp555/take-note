@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, createVNode, computed } from 'vue';
+import { ref, createVNode, computed, onMounted } from 'vue';
 import {
   DeleteOutlined,
   PlusCircleOutlined,
@@ -14,14 +14,18 @@ import {
 import { useRouter } from 'vue-router';
 import { Modal } from 'ant-design-vue';
 import Icon from '@/component/Icon.vue';
-import { useGlobalStore } from '@/store/global';
+import { userStore } from '@/store/user';
 
 const router = useRouter();
-const globalStore = useGlobalStore();
+const store_user = userStore();
 
 const selectedKeys = ref<string[]>(['1']);
 const avatar_url = computed(() => {
-  return globalStore.avatar_url;
+  return store_user.avatar_url;
+});
+onMounted(() => {
+  store_user.getUserInfo();
+  store_user.getUserAvatar();
 });
 
 const ok = () => {
