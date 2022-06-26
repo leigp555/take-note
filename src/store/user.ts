@@ -114,14 +114,12 @@ export const userStore = defineStore('userInfo', {
     async updateUserAvatar(payload: { avatar_file: string }) {
       // 更新用户头像并替换本地头像
       try {
-        const { avatar_url } = (await httpRequest('/avatar/update', 'POST', {
+        await httpRequest('/avatar/update', 'POST', {
           avatar_file: payload.avatar_file
-        })) as {
-          avatar_url: string;
-        };
-        this.avatar_url = avatar_url;
-        window.localStorage.setItem('avatar', avatar_url);
-        return Promise.resolve({ avatar_url });
+        });
+        this.avatar_url = payload.avatar_file;
+        window.localStorage.setItem('avatar', payload.avatar_file);
+        return Promise.resolve({ avatar_url: payload.avatar_file });
       } catch (err) {
         return Promise.reject(err);
       }
