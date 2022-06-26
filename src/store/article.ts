@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import httpRequest from '@/utils/axios';
+import { Tip } from '@/utils/tip';
 
 interface Article {
   owner: string;
@@ -78,10 +79,25 @@ export const articleStore = defineStore('articleInfo', {
         return Promise.reject(err);
       }
     },
+    // 继续编辑文章
+    continueEdit(payload: { identity_number: string }) {
+      // 获取上一次的文章
+      this.getOneArticle(payload)
+        .then((res) => {
+          this.title = res.articles.title;
+          this.body = res.articles.body;
+          this.saveLocal();
+          // 服务器删除上一次的文章
+          this.deleteArticle(payload).catch(() => {});
+        })
+        .catch(() => {
+          Tip('error', '请重试', 2000);
+        });
+    },
     // 删除文章
     async deleteArticle(payload: { identity_number: string }) {
       try {
-        const { msg } = (await httpRequest('/article', 'DELETE', {
+        const { msg } = (await httpRequest('/article/delete', 'POST', {
           identity_number: payload.identity_number
         })) as { msg: string };
         return Promise.resolve({ msg });

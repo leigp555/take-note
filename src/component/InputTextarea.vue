@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { watchEffect, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { articleStore } from '@/store/article';
 
@@ -9,7 +9,7 @@ const store_article = articleStore();
 const { body } = storeToRefs(store_article);
 const content = ref<string>('');
 
-onMounted(() => {
+watchEffect(() => {
   content.value = body.value;
 });
 // 获取输入框滚动条高度
