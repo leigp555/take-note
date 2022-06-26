@@ -40,8 +40,8 @@ const saveDraft = () => {
 // 正式发布为文章
 const publish = () => {
   store_article.createArticle({ isPublic: false, state: 'normal' }).then(
-    () => {
-      router.push('/success');
+    (res) => {
+      router.push(`/success/${res.identity_number}`);
     },
     () => {
       router.push('/fail');

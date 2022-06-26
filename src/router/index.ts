@@ -47,7 +47,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/component/ShowInfo.vue')
       },
       {
-        path: '/success',
+        path: '/cat/:articleId',
+        name: 'CatArticle',
+        component: () => import('@/component/CatArticle.vue')
+      },
+      {
+        path: '/success/:articleId',
         name: 'SuccessPublish',
         component: () => import('@/component/SuccessPublish.vue')
       },

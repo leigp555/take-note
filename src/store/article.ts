@@ -50,17 +50,30 @@ export const articleStore = defineStore('articleInfo', {
     // 创建文章/新文章/草稿
     async createArticle(payload = { isPublic: false, state: 'normal' }) {
       try {
-        const { title, body, isPublic, state } = (await httpRequest(
-          '/article',
-          'POST',
-          {
-            title: this.title,
-            body: this.body,
-            isPublic: payload.isPublic,
-            state: payload.state
-          }
-        )) as { title: string; body: string; isPublic: string; state: string };
-        return Promise.resolve({ title, body, isPublic, state });
+        const { article } = (await httpRequest('/article', 'POST', {
+          title: this.title,
+          body: this.body,
+          isPublic: payload.isPublic,
+          state: payload.state
+        })) as {
+          article: {
+            title: string;
+            body: string;
+            isPublic: string;
+            state: string;
+            identity_number: string;
+          };
+        };
+        // 发布完成清空缓存
+        const newArticle = JSON.stringify({
+          title: '',
+          body: ''
+        });
+        this.title = '';
+        this.body = '';
+        this.scrollHeight = 0;
+        window.localStorage.setItem('temp_save', newArticle);
+        return Promise.resolve(article);
       } catch (err) {
         return Promise.reject(err);
       }
@@ -116,8 +129,8 @@ export const articleStore = defineStore('articleInfo', {
       try {
         const ret = (await httpRequest('/article/identify', 'GET', {
           identity_number: payload.identity_number
-        })) as Article[];
-        return Promise.resolve({ articles: ret });
+        })) as { articles: Article[] };
+        return Promise.resolve({ articles: ret.articles[0] });
       } catch (err) {
         return Promise.reject(err);
       }
