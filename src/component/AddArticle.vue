@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { watchEffect, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 import InputTextarea from '@/component/InputTextarea.vue';
@@ -16,7 +16,7 @@ const { title } = storeToRefs(store_article);
 
 const articleTitle = ref<string>('');
 // 初始化时获取初始的标题
-onMounted(() => {
+watchEffect(() => {
   articleTitle.value = title.value;
 });
 // 保存标题
@@ -29,8 +29,8 @@ const changeTitle = () => {
 // 保存为草稿
 const saveDraft = () => {
   store_article.createArticle({ isPublic: false, state: 'draft' }).then(
-    () => {
-      router.push('/success');
+    (res) => {
+      router.push(`/success/${res.identity_number}`);
     },
     () => {
       router.push('/fail');
