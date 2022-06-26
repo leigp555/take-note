@@ -32,11 +32,29 @@ export const userStore = defineStore('userInfo', {
         return Promise.reject(err);
       }
     },
-    async getSecurityCode(payload: { email: string }) {
+    async resetPass(payload: {
+      email: string;
+      password: string;
+      securityCode: string;
+    }) {
+      // 注册：将用户名邮箱同步到store,将token保存到本地
+      try {
+        const { msg } = (await httpRequest('/resetPass', 'post', {
+          email: payload.email,
+          password: payload.password,
+          securityCode: payload.securityCode
+        })) as { msg: string };
+        return Promise.resolve({ msg });
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    },
+    async getSecurityCode(payload: { email: string; type: string }) {
       // 获取邮箱验证码
       try {
         const { msg } = (await httpRequest('/securityCode', 'post', {
-          email: payload.email
+          email: payload.email,
+          type: payload.type
         })) as { msg: string };
         return Promise.resolve({ msg });
       } catch (err) {

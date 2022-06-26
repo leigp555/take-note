@@ -74,6 +74,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Register.vue')
   },
   {
+    path: '/forget',
+    name: 'Forget',
+    component: () => import('@/views/Forget.vue')
+  },
+  {
     path: '/api/test',
     name: 'Test',
     component: () => import('@/component/Test.vue')

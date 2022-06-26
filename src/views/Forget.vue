@@ -8,26 +8,17 @@ import { userStore } from '@/store/user';
 
 const router = useRouter();
 const store_user = userStore();
-const formState = reactive<RegisterForm>({
-  username: 'lgp',
-  email: '122974945@qq.com',
-  securityCode: '123456',
-  password: '123456abc',
-  checkPass: '123456abc'
+const formState = reactive<Omit<RegisterForm, 'username'>>({
+  email: '',
+  securityCode: '',
+  password: '',
+  checkPass: ''
 });
 const timer = reactive({
   timing: false,
   time: 60
 });
 // 表单验证
-const verifyUserName = [
-  { required: true, message: '请填写用户名' },
-  {
-    pattern: /^[0-9A-Za-z_@/.]{3,20}$/,
-    message: '请输入3-20位(数字,字母或下划线@.)',
-    trigger: 'blur'
-  }
-];
 const verifyEmail = [
   { required: true, message: '请填写邮箱' },
   {
@@ -70,7 +61,7 @@ const getSecurityCode = () => {
       }
     }, 1000);
     store_user
-      .getSecurityCode({ email: formState.email, type: 'register' })
+      .getSecurityCode({ email: formState.email, type: 'resetPass' })
       .catch(() => {
         Tip('error', '发送失败请重试');
       });
@@ -82,21 +73,21 @@ const getSecurityCode = () => {
 };
 
 const onFinish = () => {
+  console.log('执行了');
   store_user
-    .register({
-      username: formState.username,
+    .resetPass({
       email: formState.email,
       password: formState.password,
       securityCode: formState.securityCode
     })
     .then(() => {
-      Tip('success', '注册成功!2秒后跳转至登录页', 2000);
+      Tip('success', '密码已重置', 1000);
       setTimeout(() => {
         router.push('/login');
       }, 2000);
     })
-    .catch((err) => {
-      Tip('error', err.errors.errMsg, 2000);
+    .catch(() => {
+      Tip('error', '密码重置失败', 2000);
     });
 };
 const toLogin = () => {
@@ -107,7 +98,7 @@ const toLogin = () => {
 <template>
   <div class="register-section-wrap">
     <section class="section-title">
-      <h3 style="text-align: center">用户注册</h3>
+      <h3 style="text-align: center">密码重置</h3>
     </section>
     <section class="section-from">
       <a-form
@@ -116,10 +107,6 @@ const toLogin = () => {
         class="register-form"
         @finish="onFinish"
       >
-        <!--用户名-->
-        <a-form-item name="username" :rules="verifyUserName">
-          <a-input v-model:value="formState.username" placeholder="用户名"> </a-input>
-        </a-form-item>
         <!--邮箱-->
         <a-form-item name="email" :rules="verifyEmail">
           <a-input v-model:value="formState.email" placeholder="邮箱"> </a-input>
@@ -148,7 +135,7 @@ const toLogin = () => {
         </a-form-item>
         <!--用户密码-->
         <a-form-item name="password" :rules="verifyPassWord">
-          <a-input-password v-model:value="formState.password" placeholder="密码">
+          <a-input-password v-model:value="formState.password" placeholder="输入新密码">
           </a-input-password>
         </a-form-item>
         <!--密码二次验证-->
@@ -160,7 +147,7 @@ const toLogin = () => {
         <a-form-item>
           <div class="button-action">
             <a-button type="primary" html-type="submit" class="register-form-button">
-              注册
+              重置
             </a-button>
             <a-button
               type="primary"
@@ -203,11 +190,6 @@ body {
       width: 100%;
       height: $button_height;
       color: black;
-    }
-    .redirect {
-      display: flex;
-      justify-content: space-between;
-      padding-top: 30px;
     }
     .identifying-code {
       display: flex;

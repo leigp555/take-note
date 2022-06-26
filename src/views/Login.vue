@@ -90,7 +90,7 @@ const onFinish = (values: Loginer) => {
           </a-button>
           <div class="redirect">
             <div class="goto-register">
-              <a href="">忘记密码?</a>
+              <router-link to="/forget">忘记密码?</router-link>
             </div>
             <div class="goto-register">
               <router-link to="/register">免费注册</router-link>
