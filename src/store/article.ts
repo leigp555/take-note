@@ -16,10 +16,6 @@ interface ArticleStore {
   body: string;
   scrollHeight: number;
   tabNum: string;
-  allArticles: Article[];
-  searchArticles: Article[];
-  favoriteArticles: Article[];
-  deletedArticles: Article[];
 }
 
 export const articleStore = defineStore('articleInfo', {
@@ -141,7 +137,6 @@ export const articleStore = defineStore('articleInfo', {
           offset: payload.offset,
           limit: payload.limit
         })) as { articles: Article[] };
-        this.allArticles = ret.articles;
         return Promise.resolve({ articles: ret.articles });
       } catch (err) {
         return Promise.reject(err);
@@ -159,7 +154,7 @@ export const articleStore = defineStore('articleInfo', {
       }
     },
     // 获取收藏夹文章
-    async getFavoriteArticle(payload: { offset: string; limit: string }) {
+    async getFavoriteArticle(payload: { offset: number; limit: number }) {
       try {
         const ret = (await httpRequest('/article/favorite', 'GET', {
           offset: payload.offset,
@@ -190,7 +185,6 @@ export const articleStore = defineStore('articleInfo', {
           offset: payload.offset,
           limit: payload.limit
         })) as { articles: Article[] };
-        this.searchArticles = ret.articles;
         return Promise.resolve({ articles: ret.articles });
       } catch (err) {
         return Promise.reject(err);

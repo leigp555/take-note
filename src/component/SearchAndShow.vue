@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import ArticlePage from '@/component/ArticlePage.vue';
+import { articleStore } from '@/store/article';
 
+const store_article = articleStore();
 const keyword = ref<string>('');
 
-const onSearch = (searchValue: string) => {
-  console.log('use value', searchValue);
-  console.log('or use this.value', keyword.value);
+const onSearch = () => {
+  store_article.searchArticle({ keyword: keyword.value, offset: 0, limit: 5 });
 };
 </script>
 
@@ -22,7 +23,14 @@ const onSearch = (searchValue: string) => {
   <div class="wrap">
     <section class="section-item">
       <div class="article-list">
-        <ArticlePage kind="search" />
+        <keep-alive>
+          <component
+            :is="ArticlePage"
+            kind="search"
+            :keyword="keyword"
+            :key="ArticlePage"
+          />
+        </keep-alive>
       </div>
     </section>
   </div>
