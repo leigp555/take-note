@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, createVNode, computed, onMounted } from 'vue';
+import { ref, createVNode, computed, onMounted, watchEffect } from 'vue';
 import {
   DeleteOutlined,
   PlusCircleOutlined,
@@ -19,7 +19,10 @@ import { userStore } from '@/store/user';
 const router = useRouter();
 const store_user = userStore();
 
-const selectedKeys = ref<string[]>(['1']);
+const selectedKeys = ref<string[]>(
+  JSON.parse(window.localStorage.getItem('position')!).position || ['1']
+);
+
 const avatar_url = computed(() => {
   return store_user.avatar_url;
 });
@@ -27,7 +30,10 @@ onMounted(() => {
   store_user.getUserInfo();
   store_user.getUserAvatar();
 });
-
+watchEffect(() => {
+  const str = JSON.stringify({ position: selectedKeys.value });
+  window.localStorage.setItem('position', str);
+});
 const ok = () => {
   router.push('/login');
 };
@@ -69,7 +75,7 @@ const confirm = () => {
             <PlusCircleOutlined />
           </router-link>
         </template>
-        <span>添加</span>
+        <span>创建文章</span>
       </a-menu-item>
       <a-sub-menu key="sub1">
         <template #icon>
@@ -98,7 +104,7 @@ const confirm = () => {
               <HeartOutlined />
             </router-link>
           </template>
-          <span>收藏</span></a-menu-item
+          <span>收藏夹</span></a-menu-item
         >
         <a-menu-item key="5">
           <template #icon>

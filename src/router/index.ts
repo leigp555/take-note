@@ -27,6 +27,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/component/ShowFavorite.vue')
       },
       {
+        path: '/recycle',
+        name: 'ShowRecycle',
+        component: () => import('@/component/ShowRecycle.vue')
+      },
+      {
         path: '/tools',
         name: 'ShowTools',
         component: () => import('@/component/ShowTools.vue')
@@ -35,11 +40,6 @@ const routes: Array<RouteRecordRaw> = [
         path: '/canvas',
         name: 'Canvas',
         component: () => import('@/views/Canvas.vue')
-      },
-      {
-        path: '/recycle',
-        name: 'ShowRecycle',
-        component: () => import('@/component/ShowRecycle.vue')
       },
       {
         path: '/info',

@@ -19,8 +19,8 @@ import HomeMenu from '@/component/HomeMenu.vue';
   flex-direction: row;
   flex-wrap: nowrap;
   .section-main {
-    flex-grow: 1;
-    flex-shrink: 1;
+    flex-grow: 10;
+    flex-shrink: 10;
   }
 }
 </style>
