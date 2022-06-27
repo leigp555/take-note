@@ -1,8 +1,11 @@
 <template>
   <div class="list-wrap">
-    <a-tabs v-model:activeKey="activeKey" centered style="border: none; outline: none">
+    <a-tabs v-model:activeKey="activeKey" style="border: none; outline: none">
       <a-tab-pane key="1" tab="时间轴"> </a-tab-pane>
-      <a-tab-pane key="2" tab="文章列表" force-render> </a-tab-pane>
+      <a-tab-pane key="2" tab="全部文章"> </a-tab-pane>
+      <a-tab-pane key="3" tab="收藏夹"> </a-tab-pane>
+      <a-tab-pane key="4" tab="草稿"> </a-tab-pane>
+      <a-tab-pane key="5" tab="回收站"> </a-tab-pane>
     </a-tabs>
     <div class="wrap">
       <section class="section-item">

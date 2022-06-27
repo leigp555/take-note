@@ -34,7 +34,7 @@ const avatar_url = computed(() => {
 });
 
 const props = defineProps<{
-  kind: 'allArticle' | 'search' | 'favorite';
+  kind: 'allArticle' | 'search' | 'favorite' | 'deleted';
   keyword?: string;
 }>();
 const { kind, keyword } = toRefs(props);
@@ -60,7 +60,14 @@ if (kind.value === 'search') {
 
 if (kind.value === 'favorite') {
   onMounted(() => {
-    store_article.getAllArticle({ offset: 0, limit: 3 }).then((res) => {
+    store_article.getFavoriteArticle({ offset: 0, limit: 3 }).then((res) => {
+      listData.value = res.articles;
+    });
+  });
+}
+if (kind.value === 'deleted') {
+  onMounted(() => {
+    store_article.getDeletedArticle({ offset: 0, limit: 3 }).then((res) => {
       listData.value = res.articles;
     });
   });
@@ -88,6 +95,13 @@ const pagination = {
     if (kind.value === 'favorite') {
       store_article
         .getFavoriteArticle({ offset: (page === 1 ? 0 : page - 1) * 3, limit: 3 })
+        .then((res) => {
+          listData.value = res.articles;
+        });
+    }
+    if (kind.value === 'deleted') {
+      store_article
+        .getDeletedArticle({ offset: (page === 1 ? 0 : page - 1) * 3, limit: 3 })
         .then((res) => {
           listData.value = res.articles;
         });

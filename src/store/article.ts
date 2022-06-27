@@ -159,20 +159,33 @@ export const articleStore = defineStore('articleInfo', {
         const ret = (await httpRequest('/article/favorite', 'GET', {
           offset: payload.offset,
           limit: payload.limit
-        })) as Article[];
-        return Promise.resolve({ articles: ret });
+        })) as { articles: Article[] };
+        return Promise.resolve({ articles: ret.articles });
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    },
+    // 彻底删除一篇文章
+    async deletedArticle(payload: { identity_number: string }) {
+      try {
+        const { msg } = (await httpRequest('/article/deleted', 'POST', {
+          identity_number: payload.identity_number
+        })) as {
+          msg: string;
+        };
+        return Promise.resolve({ msg });
       } catch (err) {
         return Promise.reject(err);
       }
     },
     // 获取已经删除的文章
-    async getDeletedArticle(payload: { offset: string; limit: string }) {
+    async getDeletedArticle(payload: { offset: number; limit: number }) {
       try {
         const ret = (await httpRequest('/article/deleted', 'GET', {
           offset: payload.offset,
           limit: payload.limit
-        })) as Article[];
-        return Promise.resolve({ articles: ret });
+        })) as { articles: Article[] };
+        return Promise.resolve({ articles: ret.articles });
       } catch (err) {
         return Promise.reject(err);
       }
