@@ -142,6 +142,44 @@ export const articleStore = defineStore('articleInfo', {
         return Promise.reject(err);
       }
     },
+    // 获取文章的总数
+    // eslint-disable-next-line consistent-return
+    async getNumArticle(payload: {
+      kind: 'allArticle' | 'favorite' | 'deleted' | 'draft';
+    }) {
+      try {
+        // 所有文章数量
+        if (payload.kind === 'allArticle') {
+          const ret = (await httpRequest('/article/num/allArticle', 'GET')) as {
+            total: number;
+          };
+          return Promise.resolve({ total_article: ret.total });
+        }
+        // 收藏夹文章数量
+        if (payload.kind === 'favorite') {
+          const ret = (await httpRequest('/article/num/favorite', 'GET')) as {
+            total: number;
+          };
+          return Promise.resolve({ total_article: ret.total });
+        }
+        // 草稿文章数量
+        if (payload.kind === 'draft') {
+          const ret = (await httpRequest('/article/num/draft', 'GET')) as {
+            total: number;
+          };
+          return Promise.resolve({ total_article: ret.total });
+        }
+        // 垃圾站文章数量
+        if (payload.kind === 'deleted') {
+          const ret = (await httpRequest('/article/num/deleted', 'GET')) as {
+            total: number;
+          };
+          return Promise.resolve({ total_article: ret.total });
+        }
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    },
     // 获取单独的一篇文章
     async getOneArticle(payload: { identity_number: string }) {
       try {
@@ -157,6 +195,18 @@ export const articleStore = defineStore('articleInfo', {
     async getFavoriteArticle(payload: { offset: number; limit: number }) {
       try {
         const ret = (await httpRequest('/article/favorite', 'GET', {
+          offset: payload.offset,
+          limit: payload.limit
+        })) as { articles: Article[] };
+        return Promise.resolve({ articles: ret.articles });
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    },
+    // 获取草稿
+    async getDraftArticle(payload: { offset: number; limit: number }) {
+      try {
+        const ret = (await httpRequest('/article/draft', 'GET', {
           offset: payload.offset,
           limit: payload.limit
         })) as { articles: Article[] };

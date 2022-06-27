@@ -2,7 +2,7 @@
   <a-list
     item-layout="vertical"
     size="large"
-    :pagination="pagination"
+    :pagination="pagination()"
     :data-source="listData"
   >
     <template #renderItem="{ item }">
@@ -34,18 +34,25 @@ const avatar_url = computed(() => {
 });
 
 const props = defineProps<{
-  kind: 'allArticle' | 'search' | 'favorite' | 'deleted';
+  kind: 'allArticle' | 'search' | 'favorite' | 'deleted' | 'draft';
   keyword?: string;
 }>();
 const { kind, keyword } = toRefs(props);
+const total_article = ref<number>(0);
 
+// 显示全部文章
 if (kind.value === 'allArticle') {
+  store_article.getNumArticle({ kind: 'allArticle' }).then((res) => {
+    if (res) total_article.value = res.total_article;
+    console.log(res);
+  });
   onMounted(() => {
     store_article.getAllArticle({ offset: 0, limit: 3 }).then((res) => {
       listData.value = res.articles;
     });
   });
 }
+// 显示搜索文章结果
 if (kind.value === 'search') {
   watchEffect(() => {
     if (keyword && keyword.value) {
@@ -57,15 +64,36 @@ if (kind.value === 'search') {
     }
   });
 }
-
+// 显示收藏夹文章
 if (kind.value === 'favorite') {
+  store_article.getNumArticle({ kind: 'favorite' }).then((res) => {
+    if (res) total_article.value = res.total_article;
+    console.log(res);
+  });
   onMounted(() => {
     store_article.getFavoriteArticle({ offset: 0, limit: 3 }).then((res) => {
       listData.value = res.articles;
     });
   });
 }
+// 显示草稿
+if (kind.value === 'draft') {
+  store_article.getNumArticle({ kind: 'draft' }).then((res) => {
+    if (res) total_article.value = res.total_article;
+    console.log(res);
+  });
+  onMounted(() => {
+    store_article.getDraftArticle({ offset: 0, limit: 3 }).then((res) => {
+      listData.value = res.articles;
+    });
+  });
+}
+// 显示已经删除的文章
 if (kind.value === 'deleted') {
+  store_article.getNumArticle({ kind: 'deleted' }).then((res) => {
+    if (res) total_article.value = res.total_article;
+    console.log(res);
+  });
   onMounted(() => {
     store_article.getDeletedArticle({ offset: 0, limit: 3 }).then((res) => {
       listData.value = res.articles;
@@ -73,44 +101,52 @@ if (kind.value === 'deleted') {
   });
 }
 
-const pagination = {
-  onChange: (page: number) => {
-    console.log(page);
-    if (kind.value === 'allArticle') {
-      store_article
-        .getAllArticle({ offset: (page === 1 ? 0 : page - 1) * 3, limit: 3 })
-        .then((res) => {
-          listData.value = res.articles;
-        });
-    }
-    if (kind.value === 'search') {
-      if (keyword && keyword.value) {
+const pagination = () => {
+  return {
+    onChange: (page: number) => {
+      if (kind.value === 'allArticle') {
         store_article
-          .searchArticle({ keyword: keyword!.value, offset: 0, limit: 3 })
+          .getAllArticle({ offset: (page === 1 ? 0 : page - 1) * 3, limit: 3 })
           .then((res) => {
             listData.value = res.articles;
           });
       }
-    }
-    if (kind.value === 'favorite') {
-      store_article
-        .getFavoriteArticle({ offset: (page === 1 ? 0 : page - 1) * 3, limit: 3 })
-        .then((res) => {
-          listData.value = res.articles;
-        });
-    }
-    if (kind.value === 'deleted') {
-      store_article
-        .getDeletedArticle({ offset: (page === 1 ? 0 : page - 1) * 3, limit: 3 })
-        .then((res) => {
-          listData.value = res.articles;
-        });
-    }
-  },
-  pageSize: 3,
-  hideOnSinglePage: true,
-  total: 20,
-  showQuickJumper: true
+      if (kind.value === 'search') {
+        if (keyword && keyword.value) {
+          store_article
+            .searchArticle({ keyword: keyword!.value, offset: 0, limit: 3 })
+            .then((res) => {
+              listData.value = res.articles;
+            });
+        }
+      }
+      if (kind.value === 'favorite') {
+        store_article
+          .getFavoriteArticle({ offset: (page === 1 ? 0 : page - 1) * 3, limit: 3 })
+          .then((res) => {
+            listData.value = res.articles;
+          });
+      }
+      if (kind.value === 'draft') {
+        store_article
+          .getDraftArticle({ offset: (page === 1 ? 0 : page - 1) * 3, limit: 3 })
+          .then((res) => {
+            listData.value = res.articles;
+          });
+      }
+      if (kind.value === 'deleted') {
+        store_article
+          .getDeletedArticle({ offset: (page === 1 ? 0 : page - 1) * 3, limit: 3 })
+          .then((res) => {
+            listData.value = res.articles;
+          });
+      }
+    },
+    pageSize: 3,
+    hideOnSinglePage: true,
+    total: total_article.value,
+    showQuickJumper: true
+  };
 };
 </script>
 

@@ -1,13 +1,10 @@
 <script lang="ts" setup>
 import { ref, createVNode, computed, watchEffect } from 'vue';
 import {
-  DeleteOutlined,
   PlusCircleOutlined,
   SearchOutlined,
   LoginOutlined,
-  HeartOutlined,
   ToolOutlined,
-  FileTextOutlined,
   FolderOpenOutlined,
   ExclamationCircleOutlined
 } from '@ant-design/icons-vue';
@@ -72,45 +69,23 @@ const confirm = () => {
         </template>
         <span>创建文章</span>
       </a-menu-item>
-      <a-sub-menu key="sub1">
+      <a-menu-item key="2">
         <template #icon>
-          <folder-open-outlined />
+          <router-link to="/articles">
+            <FolderOpenOutlined />
+          </router-link>
         </template>
-        <template #title>Navigation One</template>
-        <a-menu-item key="2"
-          ><template #icon>
-            <router-link to="allArticle">
-              <FileTextOutlined />
-            </router-link>
-          </template>
-          <span>文章</span></a-menu-item
-        >
-        <a-menu-item key="3">
-          <template #icon>
-            <router-link to="/searchArticle">
-              <SearchOutlined />
-            </router-link>
-          </template>
-          <span>搜索</span></a-menu-item
-        >
-        <a-menu-item key="4">
-          <template #icon>
-            <router-link to="/favorite">
-              <HeartOutlined />
-            </router-link>
-          </template>
-          <span>收藏夹</span></a-menu-item
-        >
-        <a-menu-item key="5">
-          <template #icon>
-            <router-link to="/recycle">
-              <DeleteOutlined />
-            </router-link>
-          </template>
-          <span>回收站</span></a-menu-item
-        >
-      </a-sub-menu>
-      <a-menu-item key="6">
+        <span>文章管理</span>
+      </a-menu-item>
+      <a-menu-item key="3">
+        <template #icon>
+          <router-link to="/search">
+            <SearchOutlined />
+          </router-link>
+        </template>
+        <span>文章检索</span>
+      </a-menu-item>
+      <a-menu-item key="4">
         <template #icon>
           <router-link to="/canvas">
             <Icon name="huaban" size="small" />
@@ -118,7 +93,7 @@ const confirm = () => {
         </template>
         <span>画板</span>
       </a-menu-item>
-      <a-menu-item key="7">
+      <a-menu-item key="5">
         <template #icon>
           <router-link to="/tools">
             <ToolOutlined />
@@ -127,7 +102,7 @@ const confirm = () => {
         <span>工具</span>
       </a-menu-item>
 
-      <a-menu-item key="8" style="position: relative; bottom: -45%">
+      <a-menu-item key="6" style="position: relative; bottom: -45%">
         <template #icon>
           <div @click="confirm">
             <LoginOutlined />

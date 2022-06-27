@@ -1,6 +1,6 @@
 <template>
   <div class="list-wrap">
-    <a-tabs v-model:activeKey="activeKey" style="border: none; outline: none">
+    <a-tabs v-model:activeKey="activeKey" centered style="border: none; outline: none">
       <a-tab-pane key="1" tab="时间轴"> </a-tab-pane>
       <a-tab-pane key="2" tab="全部文章"> </a-tab-pane>
       <a-tab-pane key="3" tab="收藏夹"> </a-tab-pane>
@@ -12,6 +12,9 @@
         <div class="article-list">
           <TimeLine v-if="activeKey === '1'" />
           <ArticlePage kind="allArticle" v-else-if="activeKey === '2'" />
+          <ArticlePage kind="favorite" v-else-if="activeKey === '3'" />
+          <ArticlePage kind="draft" v-else-if="activeKey === '4'" />
+          <ArticlePage kind="deleted" v-else-if="activeKey === '5'" />
         </div>
       </section>
     </div>

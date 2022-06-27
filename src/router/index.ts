@@ -12,24 +12,14 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/component/AddArticle.vue')
       },
       {
-        path: '/allArticle',
+        path: '/articles',
         name: 'ShowNotes',
         component: () => import('@/component/ShowNotes.vue')
       },
       {
-        path: '/searchArticle',
+        path: '/search',
         name: 'ShowSearchRet',
         component: () => import('@/component/ShowSearchRet.vue')
-      },
-      {
-        path: '/favorite',
-        name: 'ShowFavorite',
-        component: () => import('@/component/ShowFavorite.vue')
-      },
-      {
-        path: '/recycle',
-        name: 'ShowRecycle',
-        component: () => import('@/component/ShowRecycle.vue')
       },
       {
         path: '/tools',
