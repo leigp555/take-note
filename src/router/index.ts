@@ -22,6 +22,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/component/ShowSearchRet.vue')
       },
       {
+        path: '/images',
+        name: 'Images',
+        component: () => import('@/component/Images.vue')
+      },
+      {
         path: '/tools',
         name: 'ShowTools',
         component: () => import('@/component/ShowTools.vue')

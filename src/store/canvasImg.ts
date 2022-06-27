@@ -3,7 +3,15 @@ import httpRequest from '@/utils/axios';
 
 interface ImgStore {}
 
-const canvasStore = defineStore('canvasInfo', {
+interface Img {
+  owner: string;
+  path: string;
+  identity_number: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export const canvasStore = defineStore('canvasInfo', {
   state: () => {
     return {} as ImgStore;
   },
@@ -33,12 +41,12 @@ const canvasStore = defineStore('canvasInfo', {
       }
     },
     async getAllImg(payload: { offset: number; limit: number }) {
-      // 获取单张图片
+      // 获取所有图片
       try {
         const { images } = (await httpRequest('/img/all', 'GET', {
           offset: payload.offset,
           limit: payload.limit
-        })) as { images: string[] };
+        })) as { images: Img[] };
         return Promise.resolve({ images });
       } catch (err) {
         return Promise.reject(err);
@@ -46,6 +54,3 @@ const canvasStore = defineStore('canvasInfo', {
     }
   }
 });
-
-const xx = canvasStore();
-xx.getAllImg({ offset: 0, limit: 5 });

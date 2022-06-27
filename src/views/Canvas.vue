@@ -2,7 +2,10 @@
 import { onMounted, ref } from 'vue';
 import paint from '@/utils/inputCavans';
 import transImg from '@/utils/transApi';
+import { canvasStore } from '@/store/canvasImg';
+import { Tip } from '@/utils/tip';
 
+const store_canvas = canvasStore();
 // 设置画布初始化值
 const canvasEl = ref<HTMLCanvasElement>();
 const lineColor = ref<string>('#000000');
@@ -168,6 +171,21 @@ const exportFile = async () => {
     document.body.removeChild(link); // 释放标签
   }
 };
+
+// 发布图片
+const publishImg = async () => {
+  // 获取canvas的url/base64
+  const url = (await transImg.canvasToUrl(
+    canvasEl.value!,
+    1,
+    'image/png',
+    canvasColor.value,
+    canvasHeight.value
+  )) as string;
+  store_canvas
+    .uploadImg({ content: url, isPublic: false })
+    .then(() => Tip('success', '发布成功', 2000));
+};
 </script>
 
 <template>
@@ -184,6 +202,7 @@ const exportFile = async () => {
         <a-button type="primary" id="clear" @click.prevent="clear">橡皮擦</a-button>
         <a-button type="primary" @click="continuePaint">继续绘画</a-button>
         <a-button type="primary" @click="exportFile">导出为文件</a-button>
+        <a-button type="primary" @click="publishImg">发布图片</a-button>
       </div>
     </div>
     <a-drawer

@@ -6,7 +6,8 @@ import {
   LoginOutlined,
   ToolOutlined,
   FolderOpenOutlined,
-  ExclamationCircleOutlined
+  ExclamationCircleOutlined,
+  PictureOutlined
 } from '@ant-design/icons-vue';
 import { useRouter } from 'vue-router';
 import { Modal } from 'ant-design-vue';
@@ -95,6 +96,14 @@ const confirm = () => {
       </a-menu-item>
       <a-menu-item key="5">
         <template #icon>
+          <router-link to="/images">
+            <PictureOutlined />
+          </router-link>
+        </template>
+        <span>图片</span>
+      </a-menu-item>
+      <a-menu-item key="6">
+        <template #icon>
           <router-link to="/tools">
             <ToolOutlined />
           </router-link>
@@ -102,7 +111,7 @@ const confirm = () => {
         <span>工具</span>
       </a-menu-item>
 
-      <a-menu-item key="6" style="position: relative; bottom: -45%">
+      <a-menu-item key="7" style="position: relative; bottom: -45%">
         <template #icon>
           <div @click="confirm">
             <LoginOutlined />
