@@ -1,26 +1,19 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
-import SearchNull from '@/component/SearchNull.vue';
+import { ref } from 'vue';
 import ArticlePage from '@/component/ArticlePage.vue';
 
-const article = ref<boolean>(true);
-const value = ref<string>('');
+const keyword = ref<string>('');
 
-const component = computed(() => {
-  return article.value
-    ? { vNode: ArticlePage, id: 'ArticlePage' }
-    : { vNode: SearchNull, id: 'SearchNull' };
-});
 const onSearch = (searchValue: string) => {
   console.log('use value', searchValue);
-  console.log('or use this.value', value.value);
+  console.log('or use this.value', keyword.value);
 };
 </script>
 
 <template>
   <div class="search_input">
     <a-input-search
-      v-model:value="value"
+      v-model:value="keyword"
       placeholder="input search text"
       enter-button
       @search="onSearch"
@@ -29,7 +22,7 @@ const onSearch = (searchValue: string) => {
   <div class="wrap">
     <section class="section-item">
       <div class="article-list">
-        <Component :is="component.vNode" :key="component.id" />
+        <ArticlePage kind="search" />
       </div>
     </section>
   </div>

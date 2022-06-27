@@ -15,6 +15,11 @@ interface ArticleStore {
   title: string;
   body: string;
   scrollHeight: number;
+  tabNum: string;
+  allArticles: Article[];
+  searchArticles: Article[];
+  favoriteArticles: Article[];
+  deletedArticles: Article[];
 }
 
 export const articleStore = defineStore('articleInfo', {
@@ -22,7 +27,8 @@ export const articleStore = defineStore('articleInfo', {
     return {
       title: '',
       body: '',
-      scrollHeight: 0
+      scrollHeight: 0,
+      tabNum: '1'
     } as ArticleStore;
   },
   getters: {},
@@ -94,7 +100,7 @@ export const articleStore = defineStore('articleInfo', {
           Tip('error', '请重试', 2000);
         });
     },
-    // 删除文章
+    // 删除文章/彻底删除
     async deleteArticle(payload: { identity_number: string }) {
       try {
         const { msg } = (await httpRequest('/article/delete', 'POST', {
@@ -105,7 +111,7 @@ export const articleStore = defineStore('articleInfo', {
         return Promise.reject(err);
       }
     },
-    // 修改文章
+    // 修改文章/标记删除
     async updateArticle(payload: {
       identity_number: string;
       owner: string;
@@ -129,13 +135,14 @@ export const articleStore = defineStore('articleInfo', {
       }
     },
     // 分批获取所有文章
-    async getAllArticle(payload: { offset: string; limit: string }) {
+    async getAllArticle(payload: { offset: number; limit: number }) {
       try {
         const ret = (await httpRequest('/article/all', 'GET', {
           offset: payload.offset,
           limit: payload.limit
-        })) as Article[];
-        return Promise.resolve({ articles: ret });
+        })) as { articles: Article[] };
+        this.allArticles = ret.articles;
+        return Promise.resolve({ articles: ret.articles });
       } catch (err) {
         return Promise.reject(err);
       }
@@ -176,14 +183,15 @@ export const articleStore = defineStore('articleInfo', {
       }
     },
     // 搜索文章
-    async searchArticle(payload: { keyword: string; offset: string; limit: string }) {
+    async searchArticle(payload: { keyword: string; offset: number; limit: number }) {
       try {
         const ret = (await httpRequest('/article/search', 'GET', {
           keyword: payload.keyword,
           offset: payload.offset,
           limit: payload.limit
-        })) as Article[];
-        return Promise.resolve({ articles: ret });
+        })) as { articles: Article[] };
+        this.searchArticles = ret.articles;
+        return Promise.resolve({ articles: ret.articles });
       } catch (err) {
         return Promise.reject(err);
       }

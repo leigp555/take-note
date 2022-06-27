@@ -7,22 +7,27 @@
     <div class="wrap">
       <section class="section-item">
         <div class="article-list">
-          <Component :is="component.vNode" :key="component.id" />
+          <TimeLine v-if="activeKey === '1'" />
+          <ArticlePage kind="allArticle" v-else-if="activeKey === '2'" />
         </div>
       </section>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { ref, watchEffect } from 'vue';
+import { storeToRefs } from 'pinia';
 import TimeLine from '@/component/TimeLine.vue';
 import ArticlePage from '@/component/ArticlePage.vue';
+import { articleStore } from '@/store/article';
 
-const activeKey = ref<string>('1');
-const component = computed(() => {
-  return activeKey.value === '1'
-    ? { vNode: TimeLine, id: 'TimeLine' }
-    : { vNode: ArticlePage, id: 'ArticlePage' };
+const store_article = articleStore();
+const { tabNum } = storeToRefs(store_article);
+const activeKey = ref<string>(tabNum.value);
+watchEffect(() => {
+  store_article.$patch((state) => {
+    state.tabNum = activeKey.value;
+  });
 });
 </script>
 

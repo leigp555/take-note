@@ -1,17 +1,17 @@
 <template>
-  <div class="wrap-list">
+  <div class="wrap-list" v-if="haveContent">
     <section>
-      <a-list item-layout="horizontal" :data-source="data">
+      <a-list item-layout="horizontal" :data-source="articleDate">
         <template #renderItem="{ item }">
           <a-list-item>
-            <a-list-item-meta
-              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-            >
+            <a-list-item-meta :description="item.body">
               <template #title>
-                <a href="https://www.antdv.com/">{{ item.title }}</a>
+                <router-link :to="`/cat/${item.identity_number}`">{{
+                  item.title
+                }}</router-link>
               </template>
               <template #avatar>
-                <a-avatar src="https://joeschmoe.io/api/v1/random" />
+                <a-avatar :src="avatar_url" />
               </template>
             </a-list-item-meta>
           </a-list-item>
@@ -22,34 +22,43 @@
       <a-pagination v-model:current="current" :total="100" show-less-items />
     </section>
   </div>
+  <div v-else>
+    <SearchNull />
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, onMounted, defineProps, toRefs } from 'vue';
+import { storeToRefs } from 'pinia';
+import SearchNull from '@/component/SearchNull.vue';
+import { articleStore } from '@/store/article';
+import { userStore } from '@/store/user';
+import { Article } from '@/common/type';
 
-interface DataItem {
-  title: string;
-}
 const current = ref(1);
+const store_article = articleStore();
+const store_user = userStore();
+const { avatar_url } = storeToRefs(store_user);
+const haveContent = ref(false);
 
-// 一页只展示5个
-const data: DataItem[] = [
-  {
-    title: 'Ant Design Title 1'
-  },
-  {
-    title: 'Ant Design Title 2'
-  },
-  {
-    title: 'Ant Design Title 3'
-  },
-  {
-    title: 'Ant Design Title 4'
-  },
-  {
-    title: 'Ant Design Title 4'
-  }
-];
+const props = defineProps<{
+  kind: 'search' | 'allArticle' | 'favorite' | 'deleted';
+}>();
+
+const { kind } = toRefs(props);
+const articleDate = ref<Article[]>();
+
+// 查找所有文章
+if (kind.value === 'allArticle') {
+  onMounted(() => {
+    store_article.getAllArticle({ offset: 0, limit: 5 }).then((res) => {
+      articleDate.value = res.articles;
+      haveContent.value = true;
+    });
+  });
+}
+
+// 查询文章
 </script>
 
 <style lang="scss" scoped>
