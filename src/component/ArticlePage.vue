@@ -44,7 +44,6 @@ const total_article = ref<number>(0);
 if (kind.value === 'allArticle') {
   store_article.getNumArticle({ kind: 'allArticle' }).then((res) => {
     if (res) total_article.value = res.total_article;
-    console.log(res);
   });
   onMounted(() => {
     store_article.getAllArticle({ offset: 0, limit: 3 }).then((res) => {
@@ -68,7 +67,6 @@ if (kind.value === 'search') {
 if (kind.value === 'favorite') {
   store_article.getNumArticle({ kind: 'favorite' }).then((res) => {
     if (res) total_article.value = res.total_article;
-    console.log(res);
   });
   onMounted(() => {
     store_article.getFavoriteArticle({ offset: 0, limit: 3 }).then((res) => {
@@ -80,7 +78,6 @@ if (kind.value === 'favorite') {
 if (kind.value === 'draft') {
   store_article.getNumArticle({ kind: 'draft' }).then((res) => {
     if (res) total_article.value = res.total_article;
-    console.log(res);
   });
   onMounted(() => {
     store_article.getDraftArticle({ offset: 0, limit: 3 }).then((res) => {
@@ -92,7 +89,6 @@ if (kind.value === 'draft') {
 if (kind.value === 'deleted') {
   store_article.getNumArticle({ kind: 'deleted' }).then((res) => {
     if (res) total_article.value = res.total_article;
-    console.log(res);
   });
   onMounted(() => {
     store_article.getDeletedArticle({ offset: 0, limit: 3 }).then((res) => {
