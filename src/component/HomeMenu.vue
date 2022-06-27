@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, createVNode, computed, onMounted, watchEffect } from 'vue';
+import { ref, createVNode, computed, watchEffect } from 'vue';
 import {
   DeleteOutlined,
   PlusCircleOutlined,
@@ -22,13 +22,8 @@ const store_user = userStore();
 const selectedKeys = ref<string[]>(
   JSON.parse(window.localStorage.getItem('position')!).position || ['1']
 );
-
 const avatar_url = computed(() => {
   return store_user.avatar_url;
-});
-onMounted(() => {
-  store_user.getUserInfo();
-  store_user.getUserAvatar();
 });
 watchEffect(() => {
   const str = JSON.stringify({ position: selectedKeys.value });
