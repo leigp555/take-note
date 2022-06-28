@@ -1,11 +1,7 @@
 <template>
   <div class="wrap">
     <header class="address" @click="showModal">
-      <span
-        ><svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-address"></use>
-        </svg>
-      </span>
+      <span><Icon name="address" size="small" fill="black" /> </span>
       <span>{{ weather.address }}</span>
     </header>
     <main>
@@ -35,6 +31,7 @@ import { reactive, ref } from 'vue';
 import { pinyin } from 'pinyin-pro';
 import { toolStore } from '@/store/tool';
 import Icon from '@/component/Icon.vue';
+import { Tip } from '@/utils/tip';
 
 const store_tool = toolStore();
 const weather = reactive({
@@ -50,6 +47,9 @@ store_tool
   .then((res) => {
     weather.kind = res.result.text;
     weather.temperature = res.result.temperature;
+  })
+  .catch((err: { errMsg: string }) => {
+    Tip('error', err.errMsg, 2000);
   });
 
 const visible = ref<boolean>(false);
@@ -59,14 +59,23 @@ const showModal = () => {
 };
 const handleOk = () => {
   visible.value = false;
-  store_tool
-    .getWeather({
-      location: pinyin(weather.address, { toneType: 'none' }).replace(/\s*/g, '')
-    })
-    .then((res) => {
-      weather.kind = res.result.text;
-      weather.temperature = res.result.temperature;
-    });
+  if (weather.address) {
+    store_tool
+      .getWeather({
+        location: pinyin(weather.address, { toneType: 'none' }).replace(/\s*/g, '')
+      })
+      .then((res) => {
+        if (res.result.text && res.result.temperature) {
+          weather.kind = res.result.text;
+          weather.temperature = res.result.temperature;
+        }
+      })
+      .catch((err: { errMsg: string }) => {
+        Tip('error', err.errMsg, 2000);
+      });
+  } else {
+    Tip('warning', '请填写城市名称', 2000);
+  }
 };
 </script>
 

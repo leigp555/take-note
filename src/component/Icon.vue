@@ -2,8 +2,21 @@
 import { onMounted, ref, toRefs } from 'vue';
 
 const svgEl = ref<HTMLElement>();
-const props = defineProps<{ name: string; size: 'large' | 'middle' | 'small' }>();
-const { name, size } = toRefs(props);
+const props = defineProps({
+  name: {
+    type: String,
+    required: true
+  },
+  size: {
+    type: String,
+    default: 'large' || 'middle' || 'small'
+  },
+  fill: {
+    type: String,
+    default: 'black'
+  }
+});
+const { name, size, fill } = toRefs(props);
 onMounted(() => {
   if (!size.value || size.value === 'small') {
     svgEl.value!.classList.add('small');
@@ -16,7 +29,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <svg class="icon" aria-hidden="true" v-bind="$attrs" ref="svgEl">
+  <svg
+    class="icon"
+    aria-hidden="true"
+    v-bind="$attrs"
+    ref="svgEl"
+    :style="{ fill: fill }"
+  >
     <use :xlink:href="`#icon-${name}`"></use>
   </svg>
 </template>

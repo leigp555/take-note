@@ -29,8 +29,8 @@ export const toolStore = defineStore('counter', {
           location: payload.location
         })) as { result: { now: { text: string; temperature: number } } };
         return Promise.resolve({ result: result.now });
-      } catch (e) {
-        return Promise.reject('信息获取失败请重试');
+      } catch (err) {
+        return Promise.reject(err);
       }
     }
   }
