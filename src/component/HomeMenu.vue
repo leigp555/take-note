@@ -7,7 +7,10 @@ import {
   ToolOutlined,
   FolderOpenOutlined,
   ExclamationCircleOutlined,
-  PictureOutlined
+  PictureOutlined,
+  CalendarOutlined,
+  TranslationOutlined,
+  CloudOutlined
 } from '@ant-design/icons-vue';
 import { useRouter } from 'vue-router';
 import { Modal } from 'ant-design-vue';
@@ -102,16 +105,37 @@ const confirm = () => {
         </template>
         <span>图片</span>
       </a-menu-item>
-      <a-menu-item key="6">
+      <!--工具组-->
+      <a-sub-menu key="sub1">
         <template #icon>
-          <router-link to="/tools">
-            <ToolOutlined />
-          </router-link>
+          <ToolOutlined />
         </template>
-        <span>工具</span>
-      </a-menu-item>
-
-      <a-menu-item key="7" style="position: relative; bottom: -45%">
+        <a-menu-item key="6">
+          <template #icon>
+            <router-link to="/calender">
+              <CalendarOutlined />
+            </router-link>
+          </template>
+          <span>日历</span></a-menu-item
+        >
+        <a-menu-item key="7">
+          <template #icon>
+            <router-link to="/translate">
+              <TranslationOutlined />
+            </router-link>
+          </template>
+          <span>翻译</span></a-menu-item
+        >
+        <a-menu-item key="8">
+          <template #icon>
+            <router-link to="/weather">
+              <CloudOutlined />
+            </router-link>
+          </template>
+          <span>天气</span></a-menu-item
+        >
+      </a-sub-menu>
+      <a-menu-item key="9" style="position: relative; bottom: -45%">
         <template #icon>
           <div @click="confirm">
             <LoginOutlined />

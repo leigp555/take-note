@@ -29,7 +29,25 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/tools',
         name: 'ShowTools',
-        component: () => import('@/component/ShowTools.vue')
+        component: () => import('@/component/ShowTools.vue'),
+        children: [
+          {
+            path: '/',
+            alias: '/calender',
+            name: 'Calender',
+            component: () => import('@/component/Calendar.vue')
+          },
+          {
+            path: '/weather',
+            name: 'Weather',
+            component: () => import('@/component/Weather.vue')
+          },
+          {
+            path: '/translate',
+            name: 'Translate',
+            component: () => import('@/component/Translate.vue')
+          }
+        ]
       },
       {
         path: '/canvas',

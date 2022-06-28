@@ -38,6 +38,7 @@ store_canvas.getAllImg({ offset: 0, limit: 5 }).then((res) => {
 .img_wrap {
   position: relative;
   .inner {
+    padding: 50px;
     width: 100%;
     max-height: 100vh;
     position: absolute;

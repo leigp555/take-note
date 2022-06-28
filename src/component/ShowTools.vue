@@ -1,23 +1,10 @@
-<script lang="ts" setup>
-import Calendar from '@/component/Calendar.vue';
-import Weather from '@/component/Weather.vue';
-import Translate from '@/component/Translate.vue';
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <div class="wrap">
     <div class="tools">
       <section class="section calendar-section gradient-border">
-        <div>日历</div>
-        <Calendar />
-      </section>
-      <section class="section weather-section gradient-border">
-        <div>天气</div>
-        <Weather />
-      </section>
-      <section class="section weather-section gradient-border">
-        <div>翻译</div>
-        <Translate />
+        <router-view />
       </section>
     </div>
   </div>

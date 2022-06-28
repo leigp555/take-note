@@ -48,6 +48,9 @@ time, mark, audio, video {
   font-size: 100%;
   vertical-align: middle;
 }
+ol,ul{
+  list-style: none;
+}
 code {
   color: red;
 }
@@ -77,6 +80,8 @@ pre {
 }
 a {
   background-color: transparent;
+  text-decoration: none;
+  color: inherit;
 }
 
 abbr[title] {
@@ -127,6 +132,7 @@ sup {
 img {
   border-style: none;
   max-width: 100%;
+  vertical-align: middle;
 }
 
 
