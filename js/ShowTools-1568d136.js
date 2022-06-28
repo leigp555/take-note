@@ -1,0 +1,1 @@
+import{_ as s,b as a,o as e,e as o,f as r,c}from"./index-461f95cc.js";const t={class:"wrap"},n={class:"tools"},d={class:"section calendar-section gradient-border"};var i=s({},[["render",function(s,i){const l=a("router-view");return e(),o("div",t,[r("div",n,[r("section",d,[c(l)])])])}],["__scopeId","data-v-16854ae0"]]);export{i as default};
