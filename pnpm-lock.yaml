@@ -36,6 +36,7 @@ specifiers:
   mockjs: ^1.1.0
   nprogress: ^0.2.0
   pinia: ^2.0.14
+  pinyin-pro: ^3.10.1
   prettier: ^2.6.2
   pygmentize-bundled: ^2.3.0
   qs: ^6.10.3
@@ -60,6 +61,7 @@ dependencies:
   marked: 4.0.16
   nprogress: 0.2.0
   pinia: 2.0.14_ytvqwwdyss532bvoq2clv4ed5m
+  pinyin-pro: 3.10.1
   qs: 6.10.3
   vue: 3.2.33
   vue-router: 4.0.15_vue@3.2.33
@@ -5805,6 +5807,10 @@ packages:
       typescript: 4.6.4
       vue: 3.2.33
       vue-demi: 0.12.5_vue@3.2.33
+    dev: false
+
+  /pinyin-pro/3.10.1:
+    resolution: {integrity: sha512-bt7BsG0U9i+s/kRp7ZDk4KtiLb5d7srnKOTkic/og3MiFDY5NWfbgP4CD3P9g0wyJA0SRJoEpcWmck6l9lCt8Q==}
     dev: false
 
   /pirates/4.0.5:

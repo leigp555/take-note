@@ -23,8 +23,8 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .icon.large {
-  width: 3em;
-  height: 3em;
+  width: 4em;
+  height: 4em;
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;

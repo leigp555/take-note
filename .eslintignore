@@ -16,6 +16,7 @@ dist
 .eslintrc.js
 prettier.config.js
 /src/mock/*
+/src/assets/*
 mock/*
 components.d.ts
 
