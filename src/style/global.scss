@@ -1,3 +1,4 @@
+@import "golbalScroll";
 #nprogress .bar{
   background:  linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
 }
@@ -55,4 +56,16 @@ table tr:nth-child(odd) {
 }
 table tr:nth-child(even) {
   background-color: #f8f8f8;
+}
+
+.scroll_bar{
+  &::-webkit-scrollbar {
+    @include scrollbar;
+  }
+  &::-webkit-scrollbar-thumb {
+    @include scrollbarThumb;
+  }
+  &::-webkit-scrollbar-track {
+    @include scrollbarTrack;
+  }
 }

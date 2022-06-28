@@ -59,6 +59,7 @@ const changeCanvasHeight = async () => {
 // 重置画布内容
 const resetCanvas = () => {
   const context = canvasEl.value!.getContext('2d');
+  canvasColor.value = '#ffffff';
   if (context) {
     context.save();
     context.setTransform(1, 0, 0, 1, 0, 0);

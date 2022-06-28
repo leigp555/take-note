@@ -1,27 +1,12 @@
 <template>
   <div class="img_wrap">
-    <div>
-      <a-list
-        class="inner"
-        item-layout="vertical"
-        size="large"
-        :pagination="pagination()"
-        :data-source="listData"
-      >
-        <template #renderItem="{ item }">
-          <a-list-item :key="item.identity_number">
-            <a-list-item-meta>
-              <template #title>
-                <router-link :to="`/cat/${item.identity_number}`">
-                  <img :src="item.path" alt="" style="max-width: 50vw" />
-                </router-link>
-              </template>
-            </a-list-item-meta>
-            {{ item.body }}
-          </a-list-item>
-        </template>
-      </a-list>
-    </div>
+    <ol class="inner scroll_bar">
+      <li v-for="item in listData" :key="item.identity_number">
+        <a-image :width="200" :src="item.path"> </a-image>
+        <p>复制链接:</p>
+        <span>{{ item.path }}</span>
+      </li>
+    </ol>
   </div>
 </template>
 <script lang="ts" setup>
@@ -42,34 +27,24 @@ store_canvas.getAllImg({ offset: 0, limit: 5 }).then((res) => {
     listData.value = res.images;
   }
 });
-const total_article = ref<number>(0);
-
-const pagination = () => {
-  return {
-    onChange: (page: number) => {
-      store_canvas
-        .getAllImg({ offset: page === 1 ? 0 : (page - 1) * 3, limit: 3 })
-        .then((res) => {
-          if (res) {
-            listData.value = res.images;
-          }
-        });
-    },
-    pageSize: 3,
-    hideOnSinglePage: true,
-    total: total_article.value,
-    showQuickJumper: true
-  };
-};
 </script>
 
 <style lang="scss">
+@import 'src/style/golbalScroll';
 .ant-pagination {
   display: flex;
   justify-content: center;
 }
-.inner {
-  border: 2px solid red;
-  overflow-y: scroll;
+.img_wrap {
+  position: relative;
+  .inner {
+    width: 100%;
+    max-height: 100vh;
+    position: absolute;
+    overflow-y: scroll;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+  }
 }
 </style>
