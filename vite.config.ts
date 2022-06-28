@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import { viteMockServe } from 'vite-plugin-mock';
 import viteCompression from 'vite-plugin-compression';
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
@@ -18,7 +19,12 @@ export default defineConfig({
       // default
       mockPath: 'mock'
     }),
-    viteCompression()
+    viteCompression(),
+    createSvgIconsPlugin({
+      iconDirs: [resolve(process.cwd(), 'src/assets/svg')],
+      symbolId: 'icon-[name]',
+      customDomId: '__svg__icons__dom__'
+    })
   ],
   resolve: {
     alias: {

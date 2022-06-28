@@ -3,7 +3,7 @@
     <header class="address" @click="showModal">
       <span
         ><svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-dizhi"></use>
+          <use xlink:href="#icon-address"></use>
         </svg>
       </span>
       <span>{{ weather.address }}</span>
@@ -89,7 +89,7 @@ const handleOk = () => {
   width: 1em;
   height: 1em;
   vertical-align: -0.15em;
-  fill: currentColor;
+  fill: red;
   overflow: hidden;
 }
 .custom-class {
