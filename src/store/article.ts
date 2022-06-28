@@ -16,6 +16,7 @@ interface ArticleStore {
   body: string;
   scrollHeight: number;
   tabNum: string;
+  num: { allArticle: number; favorite: number; draft: number; deleted: number };
 }
 
 export const articleStore = defineStore('articleInfo', {
@@ -23,6 +24,7 @@ export const articleStore = defineStore('articleInfo', {
     return {
       title: '',
       body: '',
+      num: { allArticle: 0, favorite: 0, draft: 0, deleted: 0 },
       scrollHeight: 0,
       tabNum: '1'
     } as ArticleStore;
@@ -153,6 +155,7 @@ export const articleStore = defineStore('articleInfo', {
           const ret = (await httpRequest('/article/num/allArticle', 'GET')) as {
             total: number;
           };
+          this.num.allArticle = ret.total;
           return Promise.resolve({ total_article: ret.total });
         }
         // 收藏夹文章数量
@@ -160,6 +163,7 @@ export const articleStore = defineStore('articleInfo', {
           const ret = (await httpRequest('/article/num/favorite', 'GET')) as {
             total: number;
           };
+          this.num.favorite = ret.total;
           return Promise.resolve({ total_article: ret.total });
         }
         // 草稿文章数量
@@ -167,6 +171,7 @@ export const articleStore = defineStore('articleInfo', {
           const ret = (await httpRequest('/article/num/draft', 'GET')) as {
             total: number;
           };
+          this.num.draft = ret.total;
           return Promise.resolve({ total_article: ret.total });
         }
         // 垃圾站文章数量
@@ -174,6 +179,7 @@ export const articleStore = defineStore('articleInfo', {
           const ret = (await httpRequest('/article/num/deleted', 'GET')) as {
             total: number;
           };
+          this.num.deleted = ret.total;
           return Promise.resolve({ total_article: ret.total });
         }
       } catch (err) {

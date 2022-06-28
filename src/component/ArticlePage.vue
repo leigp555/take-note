@@ -22,6 +22,7 @@
 </template>
 <script lang="ts" setup>
 import { defineProps, toRefs, ref, onMounted, computed, watchEffect } from 'vue';
+import { storeToRefs } from 'pinia';
 import { articleStore } from '@/store/article';
 import { userStore } from '@/store/user';
 import { Article } from '@/common/type';
@@ -37,14 +38,13 @@ const props = defineProps<{
   kind: 'allArticle' | 'search' | 'favorite' | 'deleted' | 'draft';
   keyword?: string;
 }>();
+const { num } = storeToRefs(store_article);
 const { kind, keyword } = toRefs(props);
 const total_article = ref<number>(0);
 
 // 显示全部文章
 if (kind.value === 'allArticle') {
-  store_article.getNumArticle({ kind: 'allArticle' }).then((res) => {
-    if (res) total_article.value = res.total_article;
-  });
+  total_article.value = num.value.allArticle;
   onMounted(() => {
     store_article.getAllArticle({ offset: 0, limit: 3 }).then((res) => {
       listData.value = res.articles;
@@ -65,9 +65,7 @@ if (kind.value === 'search') {
 }
 // 显示收藏夹文章
 if (kind.value === 'favorite') {
-  store_article.getNumArticle({ kind: 'favorite' }).then((res) => {
-    if (res) total_article.value = res.total_article;
-  });
+  total_article.value = num.value.favorite;
   onMounted(() => {
     store_article.getFavoriteArticle({ offset: 0, limit: 3 }).then((res) => {
       listData.value = res.articles;
@@ -76,9 +74,7 @@ if (kind.value === 'favorite') {
 }
 // 显示草稿
 if (kind.value === 'draft') {
-  store_article.getNumArticle({ kind: 'draft' }).then((res) => {
-    if (res) total_article.value = res.total_article;
-  });
+  total_article.value = num.value.draft;
   onMounted(() => {
     store_article.getDraftArticle({ offset: 0, limit: 3 }).then((res) => {
       listData.value = res.articles;
@@ -87,9 +83,7 @@ if (kind.value === 'draft') {
 }
 // 显示已经删除的文章
 if (kind.value === 'deleted') {
-  store_article.getNumArticle({ kind: 'deleted' }).then((res) => {
-    if (res) total_article.value = res.total_article;
-  });
+  total_article.value = num.value.deleted;
   onMounted(() => {
     store_article.getDeletedArticle({ offset: 0, limit: 3 }).then((res) => {
       listData.value = res.articles;

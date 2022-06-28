@@ -25,7 +25,9 @@ onMounted(() => {
     <a-timeline mode="alternate">
       <a-timeline-item v-for="i in articleDate" :key="i.identity_number">
         <template #dot><ClockCircleOutlined style="font-size: 14px" /></template>
-        <router-link :to="`/cat/${i.identity_number}`">{{ i.title }}</router-link>
+        <router-link :to="`/cat/${i.identity_number}`">{{
+          i.title.substring(0, 50)
+        }}</router-link>
       </a-timeline-item>
       <a-timeline-item> 欢迎使用note </a-timeline-item>
     </a-timeline>
